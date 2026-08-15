@@ -1,0 +1,144 @@
+{
+  "schema": "omdsh-workshop-intake/v1",
+  "id": "dsh-permission-rules@0.4.2",
+  "submission": {
+    "repository": "https://github.com/PerryLink/dsh-permission-rules",
+    "ref": "b0132581bb59ebdd833798f2b457b66a171fff70",
+    "path": null,
+    "manifest": {
+      "schema": "omdsh-workshop-submission/v2",
+      "operation": "create-project",
+      "project": {
+        "id": "dsh-permission-rules",
+        "displayName": "dsh-permission-rules",
+        "summary": "Claude Code-style declarative permission rules for DeepSeek Harness: ordered allow/deny/ask YAML rules on the tools/pre-execute waterfall, with session-log audit, dry-run mode, and hot reload.",
+        "kind": "extension",
+        "category": "safety",
+        "tags": [
+          "permission",
+          "rules",
+          "approval",
+          "safety"
+        ],
+        "repository": "https://github.com/PerryLink/dsh-permission-rules/",
+        "path": null,
+        "author": {
+          "name": "PerryLink",
+          "url": "https://github.com/PerryLink"
+        },
+        "license": "Apache-2.0",
+        "media": null
+      },
+      "release": {
+        "version": "0.4.2",
+        "ref": "b0132581bb59ebdd833798f2b457b66a171fff70",
+        "updatedAt": "2026-08-15T08:00:00Z",
+        "channel": "stable",
+        "compatibility": "0.1.0-rc.6",
+        "changelog": "Declares the DSH Hub Workshop intake manifest (package.json#dshWorkshop, omdsh-workshop-package/v1): harness-profile integration, transactional install, restart-profile activation, structured permissions, and a named /rules command capability.",
+        "capabilities": {
+          "requiresFabric": false,
+          "deepHook": false,
+          "restartRequired": true
+        },
+        "profileBundle": {
+          "packageName": "dsh-permission-rules",
+          "spec": "github:PerryLink/dsh-permission-rules#b0132581bb59ebdd833798f2b457b66a171fff70"
+        },
+        "updateFrom": null
+      },
+      "management": {
+        "method": "profile-bundle",
+        "protocol": "harness-profile",
+        "label": "dsh plugin add",
+        "instructions": "Install with: dsh plugin --profile <profile> add \"github:PerryLink/dsh-permission-rules#b0132581bb59ebdd833798f2b457b66a171fff70\", then restart the profile. Rule files are read per session workspace (default <cwd>/.dsh/rules.yaml).",
+        "source": null
+      },
+      "declarations": {
+        "permissions": "Reads rule files under the session workspace and the configured fallback path; watches those paths (and expected-but-absent candidates) for hot reload; appends log-only permissionRules/decision audit events to the session log. No network access, no subprocesses, no sandbox changes.",
+        "testing": "139 vitest tests across 9 suites using the real rc.6 Context/Session/Commands/ApprovalService, plus GitHub Actions CI (3 OS x Node 22/24) and a local dsh --dump-config mount verification on Windows. Harness-produced v2 lifecycle evidence is not yet produced (the current isolated executor requires macOS sandbox-exec); evidence paths in package.json#dshWorkshop remain null.",
+        "trustedPublisherRequested": false,
+        "installScriptsMustRemainDisabled": true
+      },
+      "packageManifest": {
+        "schema": "omdsh-workshop-package/v1",
+        "type": "plugin",
+        "integration": {
+          "protocol": "harness-profile",
+          "artifact": "cordis.patch.yml"
+        },
+        "install": {
+          "mode": "transactional",
+          "adapter": "profile-bundle",
+          "failurePolicy": "generation-rollback",
+          "touchesCurrentBeforeActivation": false
+        },
+        "lifecycle": {
+          "activation": "restart-profile",
+          "dispose": "supported"
+        },
+        "permissions": [
+          "files:read",
+          "files:watch",
+          "session:append",
+          "network:none"
+        ],
+        "compatibility": {
+          "dshVersions": [
+            "0.1.0-rc.6"
+          ]
+        },
+        "capability": {
+          "id": "rules",
+          "kind": "command",
+          "invocation": "/rules",
+          "expected": "lists the active permission rules with their source files"
+        },
+        "evidence": {
+          "install": null,
+          "failureIsolation": null,
+          "hotReload": null,
+          "remove": null
+        }
+      }
+    }
+  },
+  "classification": {
+    "management": "transactional"
+  },
+  "baseline": {
+    "package": "@deepseek-ai/dsh",
+    "version": "0.1.0-rc.6",
+    "integrity": "sha512-brpZfED7ieRa2PQ5tUxMhHrM1pb2CmKFVM/f6yMULBDMicahk+Z2OsHgTwTDnoiZm23Ftu9rQz0NN4pflaoJcg=="
+  },
+  "review": {
+    "state": "pending-review",
+    "notes": "Automatically prepared from #9; public fixed-source preflight passed. Human review is still required."
+  },
+  "verification": {
+    "state": "untested"
+  },
+  "tests": {
+    "static": {
+      "required": true,
+      "status": "passed",
+      "evidence": "submission manifest validation; public repository and fixed commit resolved; pinned path(s): /cordis.patch.yml, /package.json"
+    },
+    "supplyChain": {
+      "required": true,
+      "status": "pending"
+    },
+    "officialBaseline": {
+      "required": true,
+      "status": "pending"
+    },
+    "lifecycle": {
+      "required": true,
+      "status": "pending"
+    }
+  },
+  "registry": {
+    "state": "ineligible",
+    "reason": "current-baseline-verification-required"
+  }
+}

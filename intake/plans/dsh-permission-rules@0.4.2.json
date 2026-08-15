@@ -1,0 +1,310 @@
+{
+  "schema": "omdsh-workshop-harness-plan/v1",
+  "id": "dsh-permission-rules@0.4.2:0.1.0-rc.6:harness-profile",
+  "projectId": "dsh-permission-rules",
+  "releaseId": "dsh-permission-rules@0.4.2",
+  "source": {
+    "repository": "https://github.com/PerryLink/dsh-permission-rules",
+    "ref": "b0132581bb59ebdd833798f2b457b66a171fff70",
+    "path": null
+  },
+  "updateFrom": null,
+  "baseline": {
+    "package": "@deepseek-ai/dsh",
+    "version": "0.1.0-rc.6",
+    "integrity": "sha512-brpZfED7ieRa2PQ5tUxMhHrM1pb2CmKFVM/f6yMULBDMicahk+Z2OsHgTwTDnoiZm23Ftu9rQz0NN4pflaoJcg=="
+  },
+  "profileBase": {
+    "template": "base",
+    "bundles": [
+      "@deepseek-ai/dsh-base"
+    ],
+    "exactPackages": [
+      {
+        "package": "@deepseek-ai/dsh-base",
+        "version": "0.1.0-rc.6",
+        "integrity": "sha512-SR0V0Lq4Bm2ir7k2OaiINZZWFSDt1n4dS8J6IlIabYhoIF46baEQY2awZ9/InOWCe+dIpQob0/3y3yZOHqjnpw=="
+      }
+    ]
+  },
+  "loaderAdapter": null,
+  "classification": {
+    "management": "transactional",
+    "installMode": "transactional",
+    "adapter": "profile-bundle",
+    "protocol": "harness-profile",
+    "failurePolicy": "generation-rollback",
+    "activation": "restart-profile"
+  },
+  "capability": {
+    "id": "rules",
+    "kind": "command",
+    "invocation": "/rules",
+    "expected": "lists the active permission rules with their source files"
+  },
+  "policy": {
+    "sourceExecution": "disabled-until-explicitly-trusted",
+    "workspace": "ephemeral",
+    "network": "deny-by-default",
+    "installScripts": "disabled",
+    "currentProfile": "read-only-until-controlled-activation",
+    "cleanup": "mandatory"
+  },
+  "claims": {
+    "seamlessInstall": {
+      "state": "candidate",
+      "reason": "requires complete candidate-profile lifecycle and generation recovery"
+    },
+    "failureIsolation": {
+      "state": "candidate",
+      "reason": "requires failure injection and generation-rollback"
+    },
+    "hotReload": {
+      "state": "not-declared",
+      "reason": "declared activation is restart-profile"
+    },
+    "protocolCompatibility": {
+      "state": "candidate",
+      "reason": "requires harness-profile contract checks at the fixed source"
+    },
+    "registryReadiness": {
+      "state": "candidate",
+      "reason": "Harness evidence can proceed to independent maintainer review"
+    }
+  },
+  "blockedReasons": [],
+  "steps": [
+    {
+      "id": "source.immutable",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "sourceImmutable": true
+      }
+    },
+    {
+      "id": "manifest.validate",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "manifestValid": true
+      }
+    },
+    {
+      "id": "artifact.present",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "artifactPresent": true
+      }
+    },
+    {
+      "id": "protocol.contract",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "protocolContractValid": true
+      }
+    },
+    {
+      "id": "compatibility.baseline",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "compatibilityPassed": true
+      }
+    },
+    {
+      "id": "permissions.review",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "permissionsReviewed": true
+      }
+    },
+    {
+      "id": "supply-chain.review",
+      "phase": "supply-chain",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "supplyChainPassed": true,
+        "installScriptsDisabled": true
+      }
+    },
+    {
+      "id": "sandbox.policy",
+      "phase": "sandbox",
+      "executor": "profile",
+      "required": true,
+      "scope": "ephemeral-workspace",
+      "expectedFacts": {
+        "workspaceEphemeral": true,
+        "networkDeniedByDefault": true,
+        "installScriptsDisabled": true,
+        "currentProtected": true
+      }
+    },
+    {
+      "id": "runtime.exact",
+      "phase": "sandbox",
+      "executor": "profile",
+      "required": true,
+      "scope": "candidate-profile",
+      "expectedFacts": {
+        "runtimeExact": true,
+        "profileBaseExact": true
+      }
+    },
+    {
+      "id": "candidate.create",
+      "phase": "sandbox",
+      "executor": "profile",
+      "required": true,
+      "scope": "candidate-profile",
+      "expectedFacts": {
+        "candidateCreated": true,
+        "currentUntouched": true,
+        "profileBaseBound": true
+      }
+    },
+    {
+      "id": "install.scripts-disabled",
+      "phase": "install",
+      "executor": "profile",
+      "required": true,
+      "scope": "candidate-profile",
+      "expectedFacts": {
+        "installScriptsDisabled": true
+      }
+    },
+    {
+      "id": "install.apply",
+      "phase": "install",
+      "executor": "profile",
+      "required": true,
+      "scope": "candidate-profile",
+      "expectedFacts": {
+        "installed": true,
+        "currentUntouched": true
+      }
+    },
+    {
+      "id": "ready.probe",
+      "phase": "ready",
+      "executor": "profile",
+      "required": true,
+      "scope": "candidate-profile",
+      "expectedFacts": {
+        "ready": true
+      }
+    },
+    {
+      "id": "capability.invoke",
+      "phase": "functional",
+      "executor": "profile",
+      "required": true,
+      "scope": "candidate-profile",
+      "expectedFacts": {
+        "capabilityObserved": true
+      }
+    },
+    {
+      "id": "failure.inject-candidate",
+      "phase": "failure",
+      "executor": "profile",
+      "required": true,
+      "scope": "candidate-profile",
+      "expectedFacts": {
+        "failureInjected": true
+      }
+    },
+    {
+      "id": "failure.current-unchanged",
+      "phase": "failure",
+      "executor": "profile",
+      "required": true,
+      "scope": "current-profile-controlled",
+      "expectedFacts": {
+        "currentUnchanged": true
+      }
+    },
+    {
+      "id": "failure.discard-candidate",
+      "phase": "failure",
+      "executor": "profile",
+      "required": true,
+      "scope": "candidate-profile",
+      "expectedFacts": {
+        "candidateDiscarded": true
+      }
+    },
+    {
+      "id": "activation.switch",
+      "phase": "lifecycle",
+      "executor": "profile",
+      "required": true,
+      "scope": "current-profile-controlled",
+      "expectedFacts": {
+        "activated": true,
+        "previousRetained": true
+      }
+    },
+    {
+      "id": "lifecycle.restart",
+      "phase": "lifecycle",
+      "executor": "profile",
+      "required": true,
+      "scope": "current-profile-controlled",
+      "expectedFacts": {
+        "restarted": true,
+        "restartScope": "profile",
+        "capabilityObserved": true
+      }
+    },
+    {
+      "id": "disable.apply",
+      "phase": "disable",
+      "executor": "profile",
+      "required": true,
+      "scope": "candidate-profile",
+      "expectedFacts": {
+        "disablePassed": true
+      }
+    },
+    {
+      "id": "remove.apply",
+      "phase": "remove",
+      "executor": "profile",
+      "required": true,
+      "scope": "candidate-profile",
+      "expectedFacts": {
+        "removePassed": true
+      }
+    },
+    {
+      "id": "recovery.generation",
+      "phase": "recovery",
+      "executor": "profile",
+      "required": true,
+      "scope": "current-profile-controlled",
+      "expectedFacts": {
+        "recoveryPassed": true,
+        "previousRestored": true
+      }
+    }
+  ]
+}
