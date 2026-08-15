@@ -15,5 +15,145 @@
     ],
     "failClosed": true
   },
-  "records": []
+  "records": [
+    {
+      "schema": "omdsh-workshop-intake/v1",
+      "id": "dsh-doublecheck@0.6.0",
+      "submission": {
+        "repository": "https://github.com/PerryLink/dsh-doublecheck",
+        "ref": "96864434cddc4935ad605b3953b67c8b8e8d2837",
+        "path": null,
+        "manifest": {
+          "schema": "omdsh-workshop-submission/v2",
+          "operation": "create-project",
+          "project": {
+            "id": "dsh-doublecheck",
+            "displayName": "dsh-doublecheck",
+            "summary": "Engineering-discipline guard for DSH: grill requirements before edits, red/green test-evidence gates, adversarial delivery review, and a report with per-dimension verification.",
+            "kind": "extension",
+            "category": "workflow",
+            "tags": [
+              "dsh-plugin"
+            ],
+            "repository": "https://github.com/PerryLink/dsh-doublecheck",
+            "path": null,
+            "author": {
+              "name": "PerryLink",
+              "url": "https://github.com/PerryLink"
+            },
+            "license": "Apache-2.0",
+            "media": null
+          },
+          "release": {
+            "version": "0.6.0",
+            "ref": "96864434cddc4935ad605b3953b67c8b8e8d2837",
+            "updatedAt": "2026-08-15T08:07:32.366Z",
+            "channel": "stable",
+            "compatibility": "Pending current-baseline verification.",
+            "changelog": "v0.6.0 hardening release: full localization, fail-fast spec commits, invariant subpath export, release pipeline. See CHANGELOG.md.",
+            "capabilities": {
+              "requiresFabric": false,
+              "deepHook": false,
+              "restartRequired": true
+            },
+            "profileBundle": {
+              "packageName": "dsh-doublecheck",
+              "spec": "0.6.0"
+            },
+            "updateFrom": null
+          },
+          "management": {
+            "method": "profile-bundle",
+            "protocol": "harness-profile",
+            "label": "dsh plugin add dsh-doublecheck",
+            "instructions": "dsh plugin --profile <name> add dsh-doublecheck",
+            "source": null
+          },
+          "declarations": {
+            "permissions": "Writes doublecheck-spec.md / doublecheck-report.md in the session workspace via ctx.fs; reads the session log in-process; starts forked subagent and workflow runs only when the adversary review and report verification modules are enabled.",
+            "testing": "159 vitest tests (typecheck/lint/coverage thresholds/pack smoke) and a real headless load+session smoke on dsh 0.1.0-rc.6; CI on a 3-OS x 2-Node matrix.",
+            "trustedPublisherRequested": false,
+            "installScriptsMustRemainDisabled": true
+          },
+          "packageManifest": {
+            "schema": "omdsh-workshop-package/v1",
+            "type": "plugin",
+            "integration": {
+              "protocol": "harness-profile",
+              "artifact": "cordis.patch.yml"
+            },
+            "install": {
+              "mode": "transactional",
+              "adapter": "profile-bundle",
+              "failurePolicy": "generation-rollback",
+              "touchesCurrentBeforeActivation": false
+            },
+            "lifecycle": {
+              "activation": "restart-profile",
+              "dispose": "supported"
+            },
+            "permissions": [
+              "filesystem:read",
+              "filesystem:write"
+            ],
+            "compatibility": {
+              "dshVersions": [
+                "0.1.0-rc.6"
+              ]
+            },
+            "capability": {
+              "id": "doublecheck",
+              "kind": "command",
+              "invocation": "send /doublecheck status in a session with the plugin rows loaded",
+              "expected": "a reply reporting the effective switch, configured modules, intensity, and folded stage facts (spec, test color, review, edit count)"
+            },
+            "evidence": {
+              "install": null,
+              "failureIsolation": null,
+              "hotReload": null,
+              "remove": null
+            }
+          }
+        }
+      },
+      "classification": {
+        "management": "transactional"
+      },
+      "baseline": {
+        "package": "@deepseek-ai/dsh",
+        "version": "0.1.0-rc.6",
+        "integrity": "sha512-brpZfED7ieRa2PQ5tUxMhHrM1pb2CmKFVM/f6yMULBDMicahk+Z2OsHgTwTDnoiZm23Ftu9rQz0NN4pflaoJcg=="
+      },
+      "review": {
+        "state": "pending-review",
+        "notes": "Automatically prepared from #13; public fixed-source preflight passed. Human review is still required."
+      },
+      "verification": {
+        "state": "untested"
+      },
+      "tests": {
+        "static": {
+          "required": true,
+          "status": "passed",
+          "evidence": "submission manifest validation; public repository and fixed commit resolved; pinned path(s): /cordis.patch.yml, /package.json"
+        },
+        "supplyChain": {
+          "required": true,
+          "status": "pending"
+        },
+        "officialBaseline": {
+          "required": true,
+          "status": "pending"
+        },
+        "lifecycle": {
+          "required": true,
+          "status": "pending"
+        }
+      },
+      "registry": {
+        "state": "ineligible",
+        "reason": "current-baseline-verification-required"
+      }
+    }
+  ]
 }
