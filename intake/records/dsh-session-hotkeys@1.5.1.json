@@ -1,0 +1,147 @@
+{
+  "schema": "omdsh-workshop-intake/v1",
+  "id": "dsh-session-hotkeys@1.5.1",
+  "submission": {
+    "repository": "https://github.com/YEYEYEYESHIFU/dsh-session-hotkeys",
+    "ref": "68afda88b58b82c319cec382e6a475f3d79587cf",
+    "path": null,
+    "manifest": {
+      "schema": "omdsh-workshop-submission/v2",
+      "operation": "create-project",
+      "project": {
+        "id": "dsh-session-hotkeys",
+        "displayName": "DSH Session Hotkeys",
+        "summary": "Session hotkeys for DeepSeek Harness Web: switch sessions like browser tabs - positional Alt+1-9 switching, pinned slots, previous/next, new/archive/rename, navigation mode and focus-search, every binding rebindable from a panel with Windows/macOS conflict-free presets.",
+        "kind": "ui",
+        "category": "interface",
+        "tags": [
+          "deepseek-harness",
+          "dsh",
+          "dsh-plugin",
+          "hotkeys",
+          "keyboard",
+          "sessions",
+          "productivity",
+          "web-ui"
+        ],
+        "repository": "https://github.com/YEYEYEYESHIFU/dsh-session-hotkeys",
+        "path": null,
+        "author": {
+          "name": "YEYEYEYESHIFU",
+          "url": "https://github.com/YEYEYEYESHIFU"
+        },
+        "license": "MIT"
+      },
+      "release": {
+        "version": "1.5.1",
+        "ref": "68afda88b58b82c319cec382e6a475f3d79587cf",
+        "updatedAt": "2026-08-16T03:01:47.000Z",
+        "channel": "stable",
+        "compatibility": "DeepSeek Harness web profile on official baseline @deepseek-ai/dsh@0.1.0-rc.6 (npx channel); browser-only client bundle, peer deps react ^18.2.0 and @deepseek-ai/dsh-client-runtime / dsh-client-ui-layout / dsh-client-ui-sidebar ^0.1.0-rc.6; last verified 2026-08-16 on Windows Chrome and macOS Chrome+Safari.",
+        "changelog": "1.5.1: radar-compliance README sections and peerDependencies. 1.5.0: previous/next session hotkeys with wrap-around (Alt+Up/Down; macOS Ctrl+Alt+Up/Down) and rebindable. 1.4.0: built-in diagnostics panel, immediately:true first-boot registration. 1.3.1: panel keyboard navigation, typing-safe modifier rule, macOS Option protection. 1.0.0: positional switching, pin slots, new/archive/rename, navigation mode, rebindable keys, focus search.",
+        "capabilities": {
+          "requiresFabric": false,
+          "deepHook": false,
+          "restartRequired": false
+        },
+        "profileBundle": null,
+        "updateFrom": null
+      },
+      "management": {
+        "method": "guided",
+        "protocol": "harness-cordis",
+        "label": "DSH Web browser-only Cordis client bundle (dsh-session-hotkeys)",
+        "instructions": "Add the dsh-session-hotkeys package to a DeepSeek Harness web profile; the bundle patch (cordis.patch.yml) registers the client half, which injects into the web runtime, UI layout and sidebar. After the web profile restarts, sessions are managed from the keyboard (positional switch, pinned slots, previous/next, navigation mode, archive/rename/new, focus search); every binding is rebindable from the in-panel Keys tab. Custom bindings and pins persist in browser localStorage only.",
+        "source": null
+      },
+      "declarations": {
+        "permissions": "Browser-only client plugin: reads the rendered sidebar DOM and the sessions/workspaces/layout client services (ui:sidebar, ui:session), listens to keyboard events (browser:keyboard), and writes two localStorage keys for bindings and pins (storage:localstorage). No network requests, no server-side state, no credentials, no subprocess, no native code.",
+        "testing": "npm run verify (scripts/verify-self-contained.mjs) passes: package structure, parseable client bundle, no external imports. Manually verified on @deepseek-ai/dsh@0.1.0-rc.6 web profile (Windows Chrome and macOS Chrome+Safari, 2026-08-16): positional switch, pins, previous/next, navigation mode, focus search, archive/rename/new session, rebinding and conflict detection. Full lifecycle (install/update/disable/remove/recovery/failure-isolation) evidence is not provided; evidence fields remain null.",
+        "trustedPublisherRequested": false,
+        "installScriptsMustRemainDisabled": true
+      },
+      "packageManifest": {
+        "schema": "omdsh-workshop-package/v1",
+        "type": "plugin",
+        "integration": {
+          "protocol": "harness-cordis",
+          "artifact": "cordis.patch.yml"
+        },
+        "install": {
+          "mode": "guided",
+          "adapter": "third-party",
+          "failurePolicy": "manual",
+          "touchesCurrentBeforeActivation": false
+        },
+        "lifecycle": {
+          "activation": "immediate",
+          "dispose": "supported"
+        },
+        "permissions": [
+          "ui:sidebar",
+          "ui:session",
+          "browser:keyboard",
+          "dom:read",
+          "storage:localstorage"
+        ],
+        "compatibility": {
+          "dshVersions": [
+            "0.1.0-rc.6"
+          ]
+        },
+        "capability": {
+          "id": "session-hotkeys",
+          "kind": "ui",
+          "invocation": "expand the DeepSeek Harness Web sidebar and press the positional switch binding (Windows Alt+1, macOS Ctrl+Shift+1)",
+          "expected": "the Nth session in the sidebar display order becomes the active session"
+        },
+        "evidence": {
+          "install": null,
+          "failureIsolation": null,
+          "hotReload": null,
+          "remove": null
+        }
+      }
+    }
+  },
+  "classification": {
+    "management": "guided"
+  },
+  "baseline": {
+    "package": "@deepseek-ai/dsh",
+    "version": "0.1.0-rc.6",
+    "integrity": "sha512-brpZfED7ieRa2PQ5tUxMhHrM1pb2CmKFVM/f6yMULBDMicahk+Z2OsHgTwTDnoiZm23Ftu9rQz0NN4pflaoJcg=="
+  },
+  "review": {
+    "state": "pending-review",
+    "notes": "Automatically prepared from #27; public fixed-source preflight passed. Human review is still required."
+  },
+  "verification": {
+    "state": "untested"
+  },
+  "tests": {
+    "static": {
+      "required": true,
+      "status": "passed",
+      "evidence": "submission manifest validation; public repository and fixed commit resolved; pinned path(s): /cordis.patch.yml, /package.json"
+    },
+    "supplyChain": {
+      "required": true,
+      "status": "pending"
+    },
+    "officialBaseline": {
+      "required": false,
+      "status": "not-applicable",
+      "evidence": "guided entries expose no executable install intent"
+    },
+    "lifecycle": {
+      "required": false,
+      "status": "not-applicable",
+      "evidence": "guided entries have no Workshop-owned lifecycle"
+    }
+  },
+  "registry": {
+    "state": "ineligible",
+    "reason": "guided-catalog-only"
+  }
+}
