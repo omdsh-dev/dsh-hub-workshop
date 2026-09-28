@@ -2,6 +2,7 @@
 
 import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
+import { setTimeout as delay } from 'node:timers/promises'
 
 import { marketplaceAssets } from './marketplace-assets.mjs'
 
@@ -11,11 +12,12 @@ import { registryTrustPublicKey, verifyRegistryDocument } from './registry-signi
 const origin = String(process.argv[2] || 'https://hub.omdsh.dev').replace(/\/$/, '')
 const pinnedTrustRoots = JSON.parse(await readFile(resolve(import.meta.dirname, '../registry-trust-roots.json'), 'utf8'))
 async function json(path) {
-  const response = await fetch(`${origin}${path}`, { signal: AbortSignal.timeout(15_000) })
+  const response = await fetch(`${origin}${path}`, { cache: 'no-store', signal: AbortSignal.timeout(15_000) })
   if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`)
   return response.json()
 }
 
+async function verifyLiveRelease() {
 const [registry, trustRoots, distributions, plugins, marketplace] = await Promise.all([
   json('/registry-v1.json'),
   json('/registry-trust-roots.json'),
@@ -54,3 +56,18 @@ if (canonicalJson(publishedIndex) !== canonicalJson(compactAssets.get("market-in
 const firstDetail = [...compactAssets.entries()].find(([path, value]) => path.startsWith("market-details/") && Object.keys(value.projects).length)
 if (firstDetail && canonicalJson(await json(`/${firstDetail[0]}`)) !== canonicalJson(firstDetail[1])) throw new Error("live detail shard differs from this release")
 console.log("live compact index and detail shard accepted")
+
+}
+
+// Asset routes can briefly reach different edge versions just after promotion.
+// Retry the complete, exact verification; a mismatch never counts as success.
+for (let attempt = 1; attempt <= 6; attempt++) {
+  try {
+    await verifyLiveRelease()
+    break
+  } catch (error) {
+    if (attempt === 6) throw error
+    console.error(`Live release is not fully observable yet (${attempt}/6): ${error.message}`)
+    await delay(5000)
+  }
+}

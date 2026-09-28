@@ -22,7 +22,7 @@ The final brand takes its lavender accent, dark ink, and official orca asset fro
 
 Probes read public root `package.json` and any safely located declared patch entry. They never install or execute third-party plugins. Records include attempt time, successful-read time, observed source update, runtime baseline, and failure states. Failed reads retain dated previous evidence without claiming a fresh success. The UI marks old observations due and explains the limits of root-manifest coverage for monorepos and skill directories.
 
-Validated snapshots are committed to `main`, then explicitly dispatch the signed deployment workflow. This avoids the old state in which scheduled refreshes only created unmerged PRs. The live check compares the exact published marketplace snapshot with the release and verifies the signed Registry independently.
+Validated snapshots are committed to `main`, then explicitly dispatch the signed deployment workflow. This avoids the old state in which scheduled refreshes only created unmerged PRs. The production environment retains its existing reviewer gate; approval is still required before a scheduled snapshot goes live. The live check compares the exact published marketplace snapshot with the release and verifies the signed Registry independently, with bounded retries for edge propagation after deployment.
 
 Search, categories, sorting, list/card views, pagination, bilingual labels, dark/light themes, source detail dialogs, copyable links, keyboard access, and reduced-motion preferences are implemented without a client framework. No dshfind UI, source code, or data is used by the new marketplace refresh.
 
