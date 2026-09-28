@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
 import { readFile, readdir } from 'node:fs/promises'
-import { resolve } from 'node:path'
+import { resolve, relative } from 'node:path'
+import { PUBLIC_FILES } from './public-assets.mjs'
+import { validateMarketplace } from './marketplace-lib.mjs'
+import { marketplaceAssets } from './marketplace-assets.mjs'
 
 import { registryTrustPublicKey } from './registry-signing-lib.mjs'
 import { validateExternalEvidence } from './external-evidence-lib.mjs'
@@ -222,10 +225,11 @@ if (repositories.schema !== 'omdsh-public-repositories/v1' || repositories.repos
 }
 if (discovery.schema !== 'omdsh-public-discovery/v1') throw new Error('public discovery schema mismatch')
 if (discovery.organization?.owner !== 'omdsh-dev'
-  || discovery.organization?.observedRepositoryCount !== 63
-  || discovery.organization?.projectCount !== 62
-  || discovery.organization?.repositories?.length !== 63) {
-  throw new Error('public organization discovery snapshot must contain 63 repositories and 62 projects')
+  || !Number.isFinite(Date.parse(discovery.organization?.checkedAt))
+  || discovery.organization?.observedRepositoryCount !== discovery.organization?.repositories?.length
+  || discovery.organization?.projectCount !== discovery.organization?.repositories?.filter(r => r.kind === 'public-project').length
+  || discovery.organization?.observedRepositoryCount < 1) {
+  throw new Error('public organization discovery counts must match the current public repository snapshot')
 }
 if (discovery.topic?.name !== 'dsh-plugin'
   || discovery.topic?.observedRepositoryCount !== topicRepositories.observedRepositoryCount
@@ -240,7 +244,13 @@ if (topicRepositories.schema !== 'dsh-topic-discovery/v1'
 }
 
 const builtFiles = await files(BUILD)
-if (builtFiles.length !== 71) throw new Error(`public build must contain exactly 71 files, received ${builtFiles.length}`)
+if (JSON.stringify(builtFiles.map(p => relative(BUILD, p)).sort()) !== JSON.stringify([...PUBLIC_FILES].sort())) throw new Error('public build differs from the explicit asset allowlist')
+const marketplace = await json('marketplace.json')
+validateMarketplace(marketplace, topicRepositories)
+for (const [path, expected] of marketplaceAssets(marketplace)) {
+  const actual = JSON.parse(await readFile(resolve(BUILD, path), 'utf8'))
+  if (JSON.stringify(actual) !== JSON.stringify(expected)) throw new Error(`marketplace index or detail shard differs from its snapshot: ${path}`)
+}
 for (const repository of repositories.repositories) {
   if (!/^https:\/\/github[.]com\/omdsh-dev\/[A-Za-z0-9._-]+$/.test(repository.url)) {
     throw new Error(`unapproved public repository URL: ${repository.url}`)
@@ -271,14 +281,16 @@ const publicTextExtensions = new Set(['.css', '.html', '.js', '.json', '.md', '.
 const contents = (await Promise.all(builtFiles
   .filter((path) => publicTextExtensions.has(path.slice(path.lastIndexOf('.'))))
   .map((path) => readFile(path, 'utf8')))).join('\n')
-const forbiddenPublicContent = new RegExp(`${RETIRED_PRIVATE_OWNER}|Private Preview|/auth/github|github_pat_|\\bgh[opusr]_|\\bnpm_[A-Za-z0-9]{20,}|-----BEGIN(?: [A-Z]+)? PRIVATE KEY-----`, 'i')
+// Match the retired namespace itself, not unrelated public repository names
+// such as dsh-external-links or dsh-external-session.
+const forbiddenPublicContent = new RegExp(`${RETIRED_PRIVATE_OWNER}(?![A-Za-z0-9_-])|Private Preview|/auth/github|github_pat_|\\bgh[opusr]_|\\bnpm_[A-Za-z0-9]{20,}|-----BEGIN(?: [A-Z]+)? PRIVATE KEY-----`, 'i')
 if (forbiddenPublicContent.test(contents)) {
   throw new Error('public site contains private-source, login, credential, or key material')
 }
 
 const [home, app, styles, projectsPage, discoveryApp, configurations, developers, publish, contributing, agentPromptZh, agentPromptEn] = await Promise.all([
   readFile(resolve(ROOT, 'index.html'), 'utf8'),
-  readFile(resolve(ROOT, 'assets/app.js'), 'utf8'),
+  readFile(resolve(ROOT, 'assets/market.js'), 'utf8'),
   readFile(resolve(ROOT, 'assets/styles.css'), 'utf8'),
   readFile(resolve(ROOT, 'projects.html'), 'utf8'),
   readFile(resolve(ROOT, 'assets/discovery.js'), 'utf8'),
@@ -289,7 +301,7 @@ const [home, app, styles, projectsPage, discoveryApp, configurations, developers
   readFile(resolve(ROOT, 'agent-submission-prompt.zh.md'), 'utf8'),
   readFile(resolve(ROOT, 'agent-submission-prompt.en.md'), 'utf8'),
 ])
-for (const required of ['discover-stage', 'featured-tabs', 'advanced-filter', 'active-filter-count', 'data-ecosystem-count', 'data-catalog-view="grid"', 'data-catalog-view="list"', 'catalog-pagination']) {
+for (const required of ['market-search', 'categories', 'confirmed-only', 'detail-dialog', 'sync-info', 'data-view="grid"', 'data-view="list"', 'catalog-pagination']) {
   if (!home.includes(required)) throw new Error(`restored Workshop layout is missing ${required}`)
 }
 for (const required of ['ecosystem-project-list', 'data-ecosystem-layer="infrastructure"', 'data-ecosystem-layer="distribution"']) {
@@ -298,23 +310,8 @@ for (const required of ['ecosystem-project-list', 'data-ecosystem-layer="infrast
 if (!discoveryApp.includes("fetch('market-layers.json')") || !discoveryApp.includes('renderEcosystem')) {
   throw new Error('ecosystem infrastructure and distributions must render on the project subpage')
 }
-if (!home.includes('class="github-star"') || !home.includes('https://github.com/omdsh-dev/dsh-hub-workshop')) {
-  throw new Error('the primary navigation must expose the public Workshop GitHub Star link')
-}
-if (!app.includes('featured.empty.recoverable') || !app.includes('visiblePackages') || !app.includes('project-capability-matrix')) {
-  throw new Error('restored Workshop interactions must preserve empty recoverable state and catalog pagination')
-}
-if (!home.includes('data-featured-mode="stars"')
-  || !app.includes('projectStars')
-  || !app.includes('commitUpdatedAt')
-  || !app.includes("t('project.created')")) {
-  throw new Error('featured lanes must use GitHub stars and repository commit activity')
-}
-if (!app.includes('selectSpotlightPackages')
-  || !app.includes("pkg.discovery?.qualification === 'verified-plugin-contract'")
-  || !app.includes('spotlight-project-stars')) {
-  throw new Error('homepage spotlight must rank file-verified plugin contracts by GitHub stars')
-}
+if (!home.includes('https://github.com/omdsh-dev/dsh-hub-workshop')) throw new Error('marketplace must expose its source repository')
+if (!app.includes('reset-search') || !app.includes('pageSize') || !app.includes('renderDetail') || !app.includes('runtime test')) throw new Error('marketplace must preserve recovery, pagination and probe detail interactions')
 if (!publish.includes('copy-agent-submission-prompt')
   || !publish.includes('agent-submission-prompt.zh.md')
   || !developers.includes('agent-submission-prompt.en.md')

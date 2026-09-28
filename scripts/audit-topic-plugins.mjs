@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { setDefaultResultOrder } from "node:dns";
+setDefaultResultOrder("ipv4first");
 
 import { readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
@@ -473,7 +475,10 @@ const audits = await mapLimit(snapshot.repositories, AUDIT_CONCURRENCY, async (r
     ? previous.sourceFingerprint === sourceFingerprint
     : Number.isFinite(Date.parse(repository.commitUpdatedAt))
       && Date.parse(repository.commitUpdatedAt) <= Date.parse(previousGeneratedAt)
-  const sourceUnchanged = previousGeneratedAt !== null
+  const previousCheckedAt = previous?.checkedAt || previousGeneratedAt
+  const cacheAge = Date.now() - Date.parse(previousCheckedAt)
+  const cacheTTL = previous?.reasonCode === 'source-scan-unavailable' ? 3600000 : 86400000
+  const sourceUnchanged = cacheAge < cacheTTL && previousGeneratedAt !== null
     && previous !== undefined
     && previous.defaultBranch === repository.defaultBranch
     && previous.archived === repository.archived
@@ -526,6 +531,7 @@ const audits = await mapLimit(snapshot.repositories, AUDIT_CONCURRENCY, async (r
     archived: repository.archived,
     sourceFingerprint,
     ...classification,
+    checkedAt: sourceUnchanged ? previousCheckedAt : new Date().toISOString(),
     evidence: {
       ...classification.evidence,
       creation,
@@ -559,7 +565,7 @@ const report = {
     previousAuditGeneratedAt: previousGeneratedAt,
     reusedRepositories: reused,
     rescannedRepositories: audits.length - reused,
-    reuseRule: 'same repository, default branch, archived state, and no source push after the previous audit',
+    reuseRule: 'unchanged repository and branch, at most 24 hours since source observation; unavailable sources retry after one hour',
   },
   policy: {
     plugin: 'package.json#dshWorkshop is the preferred admission contract. Legacy file-level plugin artifacts remain visible only as compatibility-mapped entries that need a manifest and current-baseline tests.',

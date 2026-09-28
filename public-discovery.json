@@ -1,6 +1,6 @@
 {
   "schema": "omdsh-public-discovery/v1",
-  "generatedAt": "2026-08-16T02:45:55.252Z",
+  "generatedAt": "2026-09-28T13:51:23.784Z",
   "policy": {
     "visibility": "Public repository visibility supports discovery only.",
     "authority": "A repository appears in the install Registry only after Workshop review and immutable source admission.",
@@ -9,8 +9,8 @@
   "organization": {
     "owner": "omdsh-dev",
     "source": "https://github.com/orgs/omdsh-dev/repositories?type=public",
-    "observedRepositoryCount": 63,
-    "projectCount": 62,
+    "observedRepositoryCount": 118,
+    "projectCount": 117,
     "repositories": [
       {
         "name": ".github",
@@ -23,8 +23,43 @@
         "kind": "public-project"
       },
       {
+        "name": "awesome-deepseek-harness-desktop",
+        "url": "https://github.com/omdsh-dev/awesome-deepseek-harness-desktop",
+        "kind": "public-project"
+      },
+      {
+        "name": "awesome-dsh-plugin",
+        "url": "https://github.com/omdsh-dev/awesome-dsh-plugin",
+        "kind": "public-project"
+      },
+      {
+        "name": "comem",
+        "url": "https://github.com/omdsh-dev/comem",
+        "kind": "public-project"
+      },
+      {
         "name": "community",
         "url": "https://github.com/omdsh-dev/community",
+        "kind": "public-project"
+      },
+      {
+        "name": "deepseek-harness",
+        "url": "https://github.com/omdsh-dev/deepseek-harness",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh_workflow",
+        "url": "https://github.com/omdsh-dev/dsh_workflow",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-accessibility",
+        "url": "https://github.com/omdsh-dev/dsh-accessibility",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-advisor",
+        "url": "https://github.com/omdsh-dev/dsh-advisor",
         "kind": "public-project"
       },
       {
@@ -33,13 +68,13 @@
         "kind": "public-project"
       },
       {
-        "name": "dsh-at-file",
-        "url": "https://github.com/omdsh-dev/dsh-at-file",
+        "name": "dsh-auto-chess",
+        "url": "https://github.com/omdsh-dev/dsh-auto-chess",
         "kind": "public-project"
       },
       {
-        "name": "dsh-auto-chess",
-        "url": "https://github.com/omdsh-dev/dsh-auto-chess",
+        "name": "dsh-bash-encoding",
+        "url": "https://github.com/omdsh-dev/dsh-bash-encoding",
         "kind": "public-project"
       },
       {
@@ -48,8 +83,38 @@
         "kind": "public-project"
       },
       {
+        "name": "dsh-better-workbench",
+        "url": "https://github.com/omdsh-dev/dsh-better-workbench",
+        "kind": "public-project"
+      },
+      {
         "name": "dsh-book2skill",
         "url": "https://github.com/omdsh-dev/dsh-book2skill",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-browser",
+        "url": "https://github.com/omdsh-dev/dsh-browser",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-browser4",
+        "url": "https://github.com/omdsh-dev/dsh-browser4",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-bsb-egobrowser",
+        "url": "https://github.com/omdsh-dev/dsh-bsb-egobrowser",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-container",
+        "url": "https://github.com/omdsh-dev/dsh-container",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-conversation-share",
+        "url": "https://github.com/omdsh-dev/dsh-conversation-share",
         "kind": "public-project"
       },
       {
@@ -78,8 +143,38 @@
         "kind": "public-project"
       },
       {
+        "name": "dsh-deep-sleep",
+        "url": "https://github.com/omdsh-dev/dsh-deep-sleep",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-drag-and-drop",
+        "url": "https://github.com/omdsh-dev/dsh-drag-and-drop",
+        "kind": "public-project"
+      },
+      {
+        "name": "DSH-Encrypt",
+        "url": "https://github.com/omdsh-dev/DSH-Encrypt",
+        "kind": "public-project"
+      },
+      {
         "name": "dsh-ernie-image",
         "url": "https://github.com/omdsh-dev/dsh-ernie-image",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-essential",
+        "url": "https://github.com/omdsh-dev/dsh-essential",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-feishu-notify",
+        "url": "https://github.com/omdsh-dev/dsh-feishu-notify",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-file-trace",
+        "url": "https://github.com/omdsh-dev/dsh-file-trace",
         "kind": "public-project"
       },
       {
@@ -95,6 +190,16 @@
       {
         "name": "dsh-fun-weather",
         "url": "https://github.com/omdsh-dev/dsh-fun-weather",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-fusion",
+        "url": "https://github.com/omdsh-dev/dsh-fusion",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-gal",
+        "url": "https://github.com/omdsh-dev/dsh-gal",
         "kind": "public-project"
       },
       {
@@ -123,6 +228,16 @@
         "kind": "public-project"
       },
       {
+        "name": "dsh-i18n",
+        "url": "https://github.com/omdsh-dev/dsh-i18n",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-input-history",
+        "url": "https://github.com/omdsh-dev/dsh-input-history",
+        "kind": "public-project"
+      },
+      {
         "name": "dsh-inspect",
         "url": "https://github.com/omdsh-dev/dsh-inspect",
         "kind": "public-project"
@@ -133,8 +248,38 @@
         "kind": "public-project"
       },
       {
+        "name": "dsh-lark",
+        "url": "https://github.com/omdsh-dev/dsh-lark",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-llm-fallbacks",
+        "url": "https://github.com/omdsh-dev/dsh-llm-fallbacks",
+        "kind": "public-project"
+      },
+      {
         "name": "dsh-longbridge",
         "url": "https://github.com/omdsh-dev/dsh-longbridge",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-lsp",
+        "url": "https://github.com/omdsh-dev/dsh-lsp",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-meep",
+        "url": "https://github.com/omdsh-dev/dsh-meep",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-meme",
+        "url": "https://github.com/omdsh-dev/dsh-meme",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-minigames",
+        "url": "https://github.com/omdsh-dev/dsh-minigames",
         "kind": "public-project"
       },
       {
@@ -148,8 +293,18 @@
         "kind": "public-project"
       },
       {
+        "name": "dsh-neoforge",
+        "url": "https://github.com/omdsh-dev/dsh-neoforge",
+        "kind": "public-project"
+      },
+      {
         "name": "dsh-notification",
         "url": "https://github.com/omdsh-dev/dsh-notification",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-office",
+        "url": "https://github.com/omdsh-dev/dsh-office",
         "kind": "public-project"
       },
       {
@@ -160,6 +315,11 @@
       {
         "name": "dsh-paddle-ocr",
         "url": "https://github.com/omdsh-dev/dsh-paddle-ocr",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-paste-input",
+        "url": "https://github.com/omdsh-dev/dsh-paste-input",
         "kind": "public-project"
       },
       {
@@ -188,6 +348,16 @@
         "kind": "public-project"
       },
       {
+        "name": "dsh-sandbox-micro",
+        "url": "https://github.com/omdsh-dev/dsh-sandbox-micro",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-science",
+        "url": "https://github.com/omdsh-dev/dsh-science",
+        "kind": "public-project"
+      },
+      {
         "name": "dsh-scout",
         "url": "https://github.com/omdsh-dev/dsh-scout",
         "kind": "public-project"
@@ -198,8 +368,43 @@
         "kind": "public-project"
       },
       {
+        "name": "dsh-serenity-plugin",
+        "url": "https://github.com/omdsh-dev/dsh-serenity-plugin",
+        "kind": "public-project"
+      },
+      {
         "name": "dsh-session-health",
         "url": "https://github.com/omdsh-dev/dsh-session-health",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-shuttle",
+        "url": "https://github.com/omdsh-dev/dsh-shuttle",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-sidechain",
+        "url": "https://github.com/omdsh-dev/dsh-sidechain",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-skill-state",
+        "url": "https://github.com/omdsh-dev/dsh-skill-state",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-skill-stats",
+        "url": "https://github.com/omdsh-dev/dsh-skill-stats",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-study",
+        "url": "https://github.com/omdsh-dev/dsh-study",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-tianshu-tui",
+        "url": "https://github.com/omdsh-dev/dsh-tianshu-tui",
         "kind": "public-project"
       },
       {
@@ -253,6 +458,11 @@
         "kind": "public-project"
       },
       {
+        "name": "dsh-tool-tariff",
+        "url": "https://github.com/omdsh-dev/dsh-tool-tariff",
+        "kind": "public-project"
+      },
+      {
         "name": "dsh-tool-time",
         "url": "https://github.com/omdsh-dev/dsh-tool-time",
         "kind": "public-project"
@@ -263,8 +473,53 @@
         "kind": "public-project"
       },
       {
+        "name": "dsh-tui",
+        "url": "https://github.com/omdsh-dev/dsh-tui",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-ui-progress",
+        "url": "https://github.com/omdsh-dev/dsh-ui-progress",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-ui-whale",
+        "url": "https://github.com/omdsh-dev/dsh-ui-whale",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-usage-stats",
+        "url": "https://github.com/omdsh-dev/dsh-usage-stats",
+        "kind": "public-project"
+      },
+      {
         "name": "dsh-voice-funasr",
         "url": "https://github.com/omdsh-dev/dsh-voice-funasr",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-web-desktopify",
+        "url": "https://github.com/omdsh-dev/dsh-web-desktopify",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-web-ui-notify",
+        "url": "https://github.com/omdsh-dev/dsh-web-ui-notify",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-webbridge",
+        "url": "https://github.com/omdsh-dev/dsh-webbridge",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-webhook",
+        "url": "https://github.com/omdsh-dev/dsh-webhook",
+        "kind": "public-project"
+      },
+      {
+        "name": "dsh-whale-report",
+        "url": "https://github.com/omdsh-dev/dsh-whale-report",
         "kind": "public-project"
       },
       {
@@ -273,18 +528,23 @@
         "kind": "public-project"
       },
       {
-        "name": "fabric",
-        "url": "https://github.com/omdsh-dev/fabric",
-        "kind": "public-project"
-      },
-      {
         "name": "omdsh",
         "url": "https://github.com/omdsh-dev/omdsh",
         "kind": "public-project"
       },
       {
+        "name": "omdsh-plugin-lab",
+        "url": "https://github.com/omdsh-dev/omdsh-plugin-lab",
+        "kind": "public-project"
+      },
+      {
         "name": "omdsh-runtime",
         "url": "https://github.com/omdsh-dev/omdsh-runtime",
+        "kind": "public-project"
+      },
+      {
+        "name": "org-discussions",
+        "url": "https://github.com/omdsh-dev/org-discussions",
         "kind": "public-project"
       },
       {
@@ -313,8 +573,23 @@
         "kind": "public-project"
       },
       {
+        "name": "session-event-gate",
+        "url": "https://github.com/omdsh-dev/session-event-gate",
+        "kind": "public-project"
+      },
+      {
         "name": "session-teleport",
         "url": "https://github.com/omdsh-dev/session-teleport",
+        "kind": "public-project"
+      },
+      {
+        "name": "stent",
+        "url": "https://github.com/omdsh-dev/stent",
+        "kind": "public-project"
+      },
+      {
+        "name": "taskmgr",
+        "url": "https://github.com/omdsh-dev/taskmgr",
         "kind": "public-project"
       },
       {
@@ -327,35 +602,52 @@
         "url": "https://github.com/omdsh-dev/web-components",
         "kind": "public-project"
       }
-    ]
+    ],
+    "checkedAt": "2026-09-28T13:40:41.207Z"
   },
   "topic": {
     "name": "dsh-plugin",
     "source": "https://github.com/topics/dsh-plugin",
-    "observedRepositoryCount": 4174,
-    "observedPages": 52,
+    "observedRepositoryCount": 16461,
+    "observedPages": 183,
     "status": "discovery-only",
     "collection": {
-      "method": "anonymous-partitioned-github-search",
+      "method": "authenticated-partitioned-github-search",
       "partitions": [
-        "topic:dsh-plugin created:2008-01-01T00:00:00Z..2017-04-24T11:59:59Z",
-        "topic:dsh-plugin created:2017-04-24T12:00:00Z..2021-12-20T05:59:59Z",
-        "topic:dsh-plugin created:2021-12-20T06:00:00Z..2024-04-18T14:59:59Z",
-        "topic:dsh-plugin created:2024-04-18T15:00:00Z..2025-06-17T19:29:59Z",
-        "topic:dsh-plugin created:2025-06-17T19:30:00Z..2026-01-16T09:44:59Z",
-        "topic:dsh-plugin created:2026-01-16T09:45:00Z..2026-05-02T16:52:29Z",
-        "topic:dsh-plugin created:2026-05-02T16:52:30Z..2026-06-24T20:26:14Z",
-        "topic:dsh-plugin created:2026-06-24T20:26:15Z..2026-07-21T10:13:07Z",
-        "topic:dsh-plugin created:2026-07-21T10:13:08Z..2026-08-03T17:06:33Z",
-        "topic:dsh-plugin created:2026-08-03T17:06:34Z..2026-08-10T08:33:16Z",
-        "topic:dsh-plugin created:2026-08-10T08:33:17Z..2026-08-13T16:16:38Z",
-        "topic:dsh-plugin created:2026-08-13T16:16:39Z..2026-08-14T02:14:34Z",
-        "topic:dsh-plugin created:2026-08-14T02:14:35Z..2026-08-14T07:13:32Z",
-        "topic:dsh-plugin created:2026-08-14T07:13:33Z..2026-08-14T12:12:29Z",
-        "topic:dsh-plugin created:2026-08-14T12:12:30Z..2026-08-14T22:10:24Z",
-        "topic:dsh-plugin created:2026-08-14T22:10:25Z..2026-08-15T08:08:19Z",
-        "topic:dsh-plugin created:2026-08-15T08:08:20Z..2026-08-16T23:59:59Z"
+        "topic:dsh-plugin created:2008-01-01T00:00:00Z..2017-05-15T23:59:59Z",
+        "topic:dsh-plugin created:2017-05-16T00:00:00Z..2022-01-21T11:59:59Z",
+        "topic:dsh-plugin created:2022-01-21T12:00:00Z..2024-05-26T05:59:59Z",
+        "topic:dsh-plugin created:2024-05-26T06:00:00Z..2025-07-28T02:59:59Z",
+        "topic:dsh-plugin created:2025-07-28T03:00:00Z..2026-02-27T01:29:59Z",
+        "topic:dsh-plugin created:2026-02-27T01:30:00Z..2026-06-14T00:44:59Z",
+        "topic:dsh-plugin created:2026-06-14T00:45:00Z..2026-08-06T12:22:29Z",
+        "topic:dsh-plugin created:2026-08-06T12:22:30Z..2026-08-13T04:49:41Z",
+        "topic:dsh-plugin created:2026-08-13T04:49:42Z..2026-08-14T00:53:05Z",
+        "topic:dsh-plugin created:2026-08-14T00:53:06Z..2026-08-14T05:53:56Z",
+        "topic:dsh-plugin created:2026-08-14T05:53:57Z..2026-08-14T10:54:47Z",
+        "topic:dsh-plugin created:2026-08-14T10:54:48Z..2026-08-14T20:56:29Z",
+        "topic:dsh-plugin created:2026-08-14T20:56:30Z..2026-08-15T06:58:11Z",
+        "topic:dsh-plugin created:2026-08-15T06:58:12Z..2026-08-15T16:59:53Z",
+        "topic:dsh-plugin created:2026-08-15T16:59:54Z..2026-08-16T03:01:35Z",
+        "topic:dsh-plugin created:2026-08-16T03:01:36Z..2026-08-16T13:03:17Z",
+        "topic:dsh-plugin created:2026-08-16T13:03:18Z..2026-08-16T23:04:59Z",
+        "topic:dsh-plugin created:2026-08-16T23:05:00Z..2026-08-17T09:06:41Z",
+        "topic:dsh-plugin created:2026-08-17T09:06:42Z..2026-08-18T05:10:05Z",
+        "topic:dsh-plugin created:2026-08-18T05:10:06Z..2026-08-19T01:13:29Z",
+        "topic:dsh-plugin created:2026-08-19T01:13:30Z..2026-08-19T21:16:52Z",
+        "topic:dsh-plugin created:2026-08-19T21:16:53Z..2026-08-20T17:20:16Z",
+        "topic:dsh-plugin created:2026-08-20T17:20:17Z..2026-08-21T13:23:40Z",
+        "topic:dsh-plugin created:2026-08-21T13:23:41Z..2026-08-23T05:30:28Z",
+        "topic:dsh-plugin created:2026-08-23T05:30:29Z..2026-08-24T21:37:16Z",
+        "topic:dsh-plugin created:2026-08-24T21:37:17Z..2026-08-26T13:44:03Z",
+        "topic:dsh-plugin created:2026-08-26T13:44:04Z..2026-08-29T21:57:39Z",
+        "topic:dsh-plugin created:2026-08-29T21:57:40Z..2026-09-02T06:11:14Z",
+        "topic:dsh-plugin created:2026-09-02T06:11:15Z..2026-09-08T22:38:26Z",
+        "topic:dsh-plugin created:2026-09-08T22:38:27Z..2026-09-15T15:05:37Z",
+        "topic:dsh-plugin created:2026-09-15T15:05:38Z..2026-09-22T07:32:48Z",
+        "topic:dsh-plugin created:2026-09-22T07:32:49Z..2026-09-28T23:59:59Z"
       ],
+      "authenticated": true,
       "searchCapHandled": true,
       "pluginCreationPolicy": {
         "communityCreatedAtCutoff": "2026-07-31T00:00:00.000Z",

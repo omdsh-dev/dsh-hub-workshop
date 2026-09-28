@@ -5,22 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f7f7f5">
-    <title>收录插件 - DSH Hub Workshop</title>
-    <link rel="icon" href="assets/atlas-symbol.png">
+    <title>收录插件 - DSH Hub</title>
+    <link rel="icon" href="assets/organization-mark.png">
     <link rel="stylesheet" href="assets/styles.css?v=20260809-ai-integration-v11">
     <script src="assets/site.js?v=20260809-ai-integration-v11" data-i18n-src="assets/i18n.json?v=20260809-ai-integration-v11" defer></script>
+    <link rel="stylesheet" href="assets/brand.css">
   </head>
   <body data-title-zh="收录插件" data-title-en="Submit a Plugin">
     <header class="site-header">
-      <a class="wordmark" href="./" aria-label="DSH Hub Workshop 首页" data-i18n-aria-label="site.homeLabel">
-        <img class="wordmark-mark" src="assets/atlas-symbol.png" alt="" width="34" height="34">
-        <span>DSH Hub Workshop</span>
-      </a>
+      <a class="wordmark" href="./" aria-label="DSH Hub 首页" data-i18n-aria-label="site.homeLabel">hub</a>
       <nav class="site-nav" aria-label="主导航" data-i18n-aria-label="site.navLabel">
-        <a href="./#discover" data-i18n="nav.discover">发现</a>
+        <a href="./#catalog" data-i18n="nav.discover">发现</a>
         <a href="configurations.html" data-i18n="nav.configurations">配置</a>
-        <a href="./#community" data-i18n="nav.community">讨论</a>
-        <a href="./#catalog" data-i18n="nav.projects">项目</a>
+        <a href="projects.html" data-i18n="nav.ecosystem">生态</a>
         <a href="developer-guide.html" aria-current="page" data-i18n="nav.developers">开发者</a>
         <a href="publish.html" data-i18n="nav.publish">发布</a>
       </nav>
@@ -44,8 +41,8 @@
     </header>
     <main class="doc-shell">
       <div data-locale-content="zh">
-<h1>向 DSH Hub Workshop 提交插件</h1>
-<p>DSH Hub Workshop 是插件实体索引，不要求作者把源码搬进本仓库。新投稿以作者仓库中的 <code>package.json#dshWorkshop</code> 为事实入口，Workshop 只保存固定来源、审核和验证投影。</p>
+<h1>向 DSH Hub 提交插件</h1>
+<p>DSH Hub 是插件实体索引，不要求作者把源码搬进本仓库。新投稿以作者仓库中的 <code>package.json#dshWorkshop</code> 为事实入口，Workshop 只保存固定来源、审核和验证投影。</p>
 <p>第一次开发或接入插件，请先阅读<a href="developer-guide.html">插件开发与市场指南</a>。它说明 Skill、MCP、Cordis/Profile Bundle 的最短开发路径、市场准入标准，以及官方/OMDSH 托管与第三方接入的边界。</p>
 <h2>快速提交</h2>
 <p>不熟悉目录结构也可以提交，推荐按经验选择一条路径：</p>
@@ -54,8 +51,8 @@
 <li><strong>Author Studio（人工兜底）</strong>：在 <a href="publish.html">Author Studio</a> 选择“创建项目”或“新增 Release”；待审核候选也可从详情继续。页面自动生成清单并带入 Issue，但身份、许可、兼容性、权限和测试仍必须来自作者确认的事实。</li>
 <li><strong>直接 PR</strong>：熟悉本仓库的贡献者可以按下方格式修改源数据、生成产物并提交 PR，适合一次更新多个条目或维护已有条目。</li>
 </ol>
-<p>Issue 只是收录申请，不等于已经通过审核，也不代表 DSH Hub Workshop 为第三方代码提供安全背书。自动化只读取固定 commit，不执行投稿代码，并复用一条候选分支和一个 PR。Critical 漏洞会阻止收录；高风险权限、native code、安装脚本、作者身份不一致和可信发布者请求进入 Draft PR 人工审核；扫描完整且没有高风险信号的条目形成普通 PR。扫描或外部漏洞服务不可用时保守地停在审核队列。</p>
-<p><code>requiresFabric</code>、<code>deepHook</code> 和 <code>restartRequired</code> 必须按 Release 如实声明；深层 Hook 必须同时声明 Fabric。它们只影响兼容提示，不授权 DSH Hub Workshop 或 Runtime 调用 Fabric。Release 撤回、Project 归档和所有权转移使用 <a href="https://github.com/omdsh-dev/dsh-hub-workshop/issues/new?template=governance-request.yml">Governance Issue</a>，不通过普通新增 Release 自动化完成。</p>
+<p>Issue 只是收录申请，不等于已经通过审核，也不代表 DSH Hub 为第三方代码提供安全背书。自动化只读取固定 commit，不执行投稿代码，并复用一条候选分支和一个 PR。Critical 漏洞会阻止收录；高风险权限、native code、安装脚本、作者身份不一致和可信发布者请求进入 Draft PR 人工审核；扫描完整且没有高风险信号的条目形成普通 PR。扫描或外部漏洞服务不可用时保守地停在审核队列。</p>
+<p><code>requiresFabric</code>、<code>deepHook</code> 和 <code>restartRequired</code> 必须按 Release 如实声明；深层 Hook 必须同时声明 Fabric。它们只影响兼容提示，不授权 DSH Hub 或 Runtime 调用 Fabric。Release 撤回、Project 归档和所有权转移使用 <a href="https://github.com/omdsh-dev/dsh-hub-workshop/issues/new?template=governance-request.yml">Governance Issue</a>，不通过普通新增 Release 自动化完成。</p>
 <p>普通市场收录只判断项目当前的真实形态，不要求具备事务回滚。项目实际使用官方 Profile Bundle 时，维护者才核对不可变安装 spec 并标记“事务托管”。最小结构只有 <code>package.json#dsh.bundle</code> 和 <code>cordis.patch.yml</code>，不需要第二套 Loader；patch 如果加载 Bundle 自身，还必须提交其运行时入口，因为安装脚本始终保持禁用。示例仓库进入 <code>main</code> 前不会被文档或市场标成可安装模板。</p>
 <p>提交前请确保目标 commit 对维护者可读。不要在 Issue、PR、安装命令或示例配置中粘贴 Token、密钥、成员名单、个人路径或私有配置。</p>
 <h2>收录条件</h2>
@@ -122,7 +119,7 @@
 <li><code>manager</code>：插件生命周期基础设施；</li>
 <li><code>toolkit</code>：补丁、移植或辅助工具集合。</li>
 </ul>
-<p><code>category</code> 是可选的 DSH Hub Workshop 导航标签：<code>workflow</code>、<code>developer-tools</code>、<code>channels</code>、<code>interface</code>、<code>platform</code>、<code>safety</code>、<code>memory</code>、<code>infrastructure</code>、<code>fun</code>。它不会进入 Runtime Registry，也不参与收录或信任判断。</p>
+<p><code>category</code> 是可选的 DSH Hub 导航标签：<code>workflow</code>、<code>developer-tools</code>、<code>channels</code>、<code>interface</code>、<code>platform</code>、<code>safety</code>、<code>memory</code>、<code>infrastructure</code>、<code>fun</code>。它不会进入 Runtime Registry，也不参与收录或信任判断。</p>
 <p><code>status</code>：</p>
 <ul>
 <li><code>verified</code>：声明的分发结构和主要验证证据已核对；</li>
@@ -194,8 +191,8 @@ node --check docs/assets/app.js
 </div>
 
 <div data-locale-content="en" hidden>
-<h1>Submit a Plugin to DSH Hub Workshop</h1>
-<p>DSH Hub Workshop indexes plugin entities without moving author source into this repository. New submissions start from <code>package.json#dshWorkshop</code> in the author repository; Workshop stores only pinned-source, review, and verification projections.</p>
+<h1>Submit a Plugin to DSH Hub</h1>
+<p>DSH Hub indexes plugin entities without moving author source into this repository. New submissions start from <code>package.json#dshWorkshop</code> in the author repository; Workshop stores only pinned-source, review, and verification projections.</p>
 <p>If this is your first extension or submission, start with the <a href="developer-guide.html">Plugin Development and Marketplace Guide</a>. It covers the shortest Skill, MCP, and Cordis/Profile Bundle paths, admission rules, and the boundary between official/OMDSH management and third-party integration.</p>
 <h2>Quick Submission</h2>
 <p>You can contribute without learning the catalog schema. Choose the path that fits your experience:</p>
@@ -204,8 +201,8 @@ node --check docs/assets/app.js
 <li><strong>Author Studio (manual fallback):</strong> use <a href="publish.html">Author Studio</a> to create a Project or add an immutable Release. A Pending Review candidate can continue from its detail page. The page generates the manifest and carries it into an Issue, but identity, license, compatibility, permissions, and test evidence must still be author-confirmed facts.</li>
 <li><strong>Direct PR:</strong> contributors familiar with this repository can update the source data and generated artifacts below. This works well for multiple entries or maintenance of an existing entry.</li>
 </ol>
-<p>An Issue is only a submission request: it is not acceptance and does not mean DSH Hub Workshop endorses third-party code as safe. Automation reads the fixed commit without executing submitted code and reuses one candidate branch and one PR. Critical vulnerabilities block listing. Elevated permissions, native code, lifecycle scripts, author-identity mismatches, and trusted-publisher requests produce a Draft PR for human review. Complete low-risk facts produce a normal PR. Scanner or external vulnerability-service failures fail closed into review.</p>
-<p>Declare <code>requiresFabric</code>, <code>deepHook</code>, and <code>restartRequired</code> per Release; deep hooks require Fabric. These facts affect compatibility messaging only and never authorize DSH Hub Workshop or Runtime to invoke Fabric. Use a <a href="https://github.com/omdsh-dev/dsh-hub-workshop/issues/new?template=governance-request.yml">Governance Issue</a> for Release removal, Project archival, or ownership transfer rather than the ordinary Release automation.</p>
+<p>An Issue is only a submission request: it is not acceptance and does not mean DSH Hub endorses third-party code as safe. Automation reads the fixed commit without executing submitted code and reuses one candidate branch and one PR. Critical vulnerabilities block listing. Elevated permissions, native code, lifecycle scripts, author-identity mismatches, and trusted-publisher requests produce a Draft PR for human review. Complete low-risk facts produce a normal PR. Scanner or external vulnerability-service failures fail closed into review.</p>
+<p>Declare <code>requiresFabric</code>, <code>deepHook</code>, and <code>restartRequired</code> per Release; deep hooks require Fabric. These facts affect compatibility messaging only and never authorize DSH Hub or Runtime to invoke Fabric. Use a <a href="https://github.com/omdsh-dev/dsh-hub-workshop/issues/new?template=governance-request.yml">Governance Issue</a> for Release removal, Project archival, or ownership transfer rather than the ordinary Release automation.</p>
 <p>Ordinary catalog listing reports the project&#39;s current form and does not require transactional rollback. Maintainers verify an immutable install spec and label the project transactional only when it actually uses an official Profile Bundle. Its minimum structure is <code>package.json#dsh.bundle</code> and <code>cordis.patch.yml</code>, without a second Loader. If the patch loads the Bundle package itself, its runtime entry must also be committed because install scripts always remain disabled. An example repository is not advertised as installable until that structure reaches its default branch.</p>
 <p>Make sure maintainers can read the pinned commit. Never paste tokens, keys, member lists, personal paths, private configuration, or other sensitive data into an Issue, PR, install command, or example configuration.</p>
 <h2>Entry Requirements</h2>
@@ -272,7 +269,7 @@ node --check docs/assets/app.js
 <li><code>manager</code>: plugin lifecycle infrastructure.</li>
 <li><code>toolkit</code>: a patch, port, or support-tool collection.</li>
 </ul>
-<p><code>category</code> is an optional DSH Hub Workshop navigation label: <code>workflow</code>, <code>developer-tools</code>, <code>channels</code>, <code>interface</code>, <code>platform</code>, <code>safety</code>, <code>memory</code>, <code>infrastructure</code>, <code>fun</code>. It is excluded from Runtime Registry and never affects listing or trust.</p>
+<p><code>category</code> is an optional DSH Hub navigation label: <code>workflow</code>, <code>developer-tools</code>, <code>channels</code>, <code>interface</code>, <code>platform</code>, <code>safety</code>, <code>memory</code>, <code>infrastructure</code>, <code>fun</code>. It is excluded from Runtime Registry and never affects listing or trust.</p>
 <p><code>status</code>:</p>
 <ul>
 <li><code>verified</code>: the declared distribution structure and primary verification evidence have been checked.</li>
@@ -345,9 +342,9 @@ node --check docs/assets/app.js
 
     </main>
     <footer class="site-footer doc-footer">
-      <div class="footer-summary"><a class="footer-brand" href="./">DSH Hub Workshop</a><p data-i18n="footer.notice">DSH Hub Workshop 只做索引，不对插件内容做安全担保。是否信任与安装，请自行核验。</p></div>
+      <div class="footer-summary"><a class="footer-brand" href="./">hub</a><p data-i18n="footer.notice">DSH Hub 只做索引，不对插件内容做安全担保。是否信任与安装，请自行核验。</p></div>
       <nav class="footer-group" aria-label="站点资源"><strong class="footer-heading">站点资源</strong><div class="footer-links"><a href="./" data-i18n="nav.catalog">插件</a><a href="catalog.json">JSON API</a><a href="https://github.com/omdsh-dev/dsh-hub-workshop">GitHub</a></div></nav>
-      <nav class="footer-group footer-ecosystem" aria-label="生态外链"><strong class="footer-heading">生态外链</strong><a class="footer-external-link" href="https://dshfind.com/" target="_blank" rel="noopener noreferrer"><span><b>dshfind</b><small>DSH 学习与分享社区</small></span><span aria-hidden="true">↗</span></a></nav>
+      <nav class="footer-group footer-ecosystem" aria-label="生态外链"><strong class="footer-heading">生态外链</strong><a class="footer-external-link" href="https://omdsh.dev/" target="_blank" rel="noopener noreferrer"><span><b>Oh My DSH</b><small>独立开发者社区</small></span><span aria-hidden="true">↗</span></a></nav>
     </footer>
   </body>
 </html>

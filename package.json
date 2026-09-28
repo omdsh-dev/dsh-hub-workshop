@@ -40,7 +40,8 @@
     "test": "node --test",
     "validate": "npm run check && npm test",
     "deploy:dry-run": "npm run build && wrangler deploy -c wrangler.public.jsonc --dry-run --outdir dist",
-    "deploy": "npm run validate && npm run registry:sign && wrangler deploy -c wrangler.public.jsonc"
+    "deploy": "npm run validate && npm run registry:sign && wrangler deploy -c wrangler.public.jsonc",
+    "market:refresh": "node scripts/refresh-marketplace.mjs"
   },
   "devDependencies": {
     "@modelcontextprotocol/client": "2.0.0",
@@ -51,5 +52,8 @@
   "engines": {
     "node": ">=22"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "semver": "^7.7.3"
+  }
 }

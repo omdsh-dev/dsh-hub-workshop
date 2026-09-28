@@ -4,20 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <meta name="description" content="DSH Hub 完整公开扩展目录与已审核候选清单。">
+  <meta name="description" content="浏览 DSH 插件目录、公开源码和最新探测记录。">
   <title>扩展清单 - DSH Hub</title>
-  <link rel="icon" href="assets/atlas-symbol.png">
+  <link rel="icon" href="assets/organization-mark.png">
   <link rel="stylesheet" href="assets/styles.css">
-</head>
+  <link rel="stylesheet" href="assets/brand.css">
+  </head>
 <body>
   <header class="site-header">
     <a class="wordmark" href="./" aria-label="DSH Hub 首页">
-      <img class="wordmark-mark" src="assets/atlas-symbol.png" alt="" width="34" height="34">
-      <span>DSH Hub</span>
+      hub
     </a>
     <nav class="site-nav" aria-label="主导航">
       <a href="./#catalog">插件</a>
-      <a href="./#ecosystem">项目</a>
+      <a href="projects.html">项目</a>
       <a href="install.html">安装</a>
       <a href="contributing.html">收录</a>
     </nav>
@@ -25,34 +25,22 @@
   <main class="doc-shell">
     <h1>公开扩展清单</h1>
     <blockquote>
-      <p>本次快照先把全部 Topic 仓库作为候选，再按文件级插件证据筛选；主仓、基础设施、发行版、awesome/文档/模板、独立应用和 Topic-only 项目不进入 Catalog。精确统计见 Catalog 与 Plugin Audit JSON。</p>
+      <p>从公开仓库发现社区插件。作者声明的待确认项目与已有文件级证据的项目分别标记，支持只查看有插件证据的项目。</p>
     </blockquote>
     <p><a href="./#catalog">在首页搜索、筛选和浏览完整目录</a>，或读取 <a href="topic-repositories.json">Topic 仓库快照 JSON</a>。</p>
-    <h2>已审核候选：toybox</h2>
-    <p>8 个公开技能与 MCP 候选：</p>
-    <ul>
-      <li><a href="./#package=code-archaeologist">代码考古学家</a></li>
-      <li><a href="./#package=code-talent-scout">代码星探</a></li>
-      <li><a href="./#package=bug-tamer">Bug 驯兽师</a></li>
-      <li><a href="./#package=almanac-mcp">老黄历 MCP</a></li>
-      <li><a href="./#package=chinese-colors-mcp">中国传统色 MCP</a></li>
-      <li><a href="./#package=decision-dice-mcp">决策骰子 MCP</a></li>
-      <li><a href="./#package=naming-master-mcp">取名大师 MCP</a></li>
-      <li><a href="./#package=time-capsule-mcp">时间胶囊 MCP</a></li>
-    </ul>
-    <h2>已审核候选：独立扩展项目</h2>
-    <ul>
-      <li><a href="./#package=github-integration">GitHub Integration</a></li>
-      <li><a href="./#package=session-teleport">Session Teleport</a></li>
-      <li><a href="./#package=7d7d">7d7d 游戏门户</a></li>
-    </ul>
+    <h2>找到适合你的插件</h2>
+    <p>首页支持按工作流、记忆、消息渠道、界面体验和安全等用途查找。每个项目都提供公开源码、使用说明和带时间的探测记录。</p>
+    <p><a class="primary-link" href="./#catalog">探索插件市场 ↗</a></p>
+    <h2>最新探测如何工作</h2>
+    <p>Hub 每 6 小时刷新公开发现数据，重新读取变更的项目，并让未变更项目的探测缓存最多保留 24 小时。依赖范围会与 npm 当前发布的 DSH 版本对照。网络失败会明确显示，历史成功结果不会被改写为新结果。</p>
+    <p>文件探测不是运行测试。项目详情会分别显示源码更新时间、最近尝试时间与成功读取时间。</p>
     <h2>数据边界</h2>
-    <p><a href="catalog.json">Catalog JSON</a> 只列插件；<a href="topic-repositories.json">Topic Snapshot JSON</a> 保留完整公开候选来源快照；<a href="topic-plugin-audit.json">Plugin Audit JSON</a> 公开每个仓库的插件、生态层或排除结论；<a href="registry-v1.json">Registry JSON</a> 只发布经过固定版本、供应链、真实运行和恢复门禁的安装条目。</p>
+    <p><a href="marketplace.json">Marketplace JSON</a> 提供最新市场目录与探测记录；<a href="catalog.json">Catalog JSON</a> 提供有文件级证据的插件；<a href="topic-repositories.json">Topic Snapshot JSON</a> 保留完整公开候选来源快照；<a href="topic-plugin-audit.json">Plugin Audit JSON</a> 公开每个仓库的插件、生态层或排除结论；<a href="registry-v1.json">Registry JSON</a> 只发布经过固定版本、供应链、真实运行和恢复门禁的安装条目。</p>
   </main>
   <footer class="site-footer">
-    <div class="footer-summary"><a class="footer-brand" href="./">DSH Hub</a><p>公开来源不等于安装权限。安装前请核验固定提交、依赖、权限与维护者声明。</p></div>
+    <div class="footer-summary"><a class="footer-brand" href="./">hub</a><p>公开来源不等于安装权限。安装前请核验固定提交、依赖、权限与维护者声明。</p></div>
     <nav class="footer-group" aria-label="站点资源"><strong class="footer-heading">站点资源</strong><div class="footer-links"><a href="catalog.json">JSON API</a><a href="https://github.com/orgs/omdsh-dev/repositories">omdsh-dev</a></div></nav>
-    <nav class="footer-group footer-ecosystem" aria-label="生态外链"><strong class="footer-heading">生态外链</strong><a class="footer-external-link" href="https://dshfind.com/" target="_blank" rel="noopener noreferrer"><span><b>dshfind</b><small>DSH 学习与分享社区</small></span><span aria-hidden="true">↗</span></a></nav>
+    <nav class="footer-group footer-ecosystem" aria-label="生态外链"><strong class="footer-heading">生态外链</strong><a class="footer-external-link" href="https://omdsh.dev/" target="_blank" rel="noopener noreferrer"><span><b>Oh My DSH</b><small>独立开发者社区</small></span><span aria-hidden="true">↗</span></a></nav>
   </footer>
 </body>
 </html>

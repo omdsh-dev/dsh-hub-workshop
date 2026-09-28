@@ -4,13 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>Registry 边界 · DSH Hub Workshop</title>
+  <link rel="icon" href="assets/organization-mark.png">
+  <title>Registry 边界 · DSH Hub</title>
   <link rel="stylesheet" href="assets/styles.css">
   
-</head>
+  <link rel="stylesheet" href="assets/brand.css">
+  </head>
 <body>
-  <header class="site-header"><a class="brand" href="./">DSH Hub Workshop</a><nav class="primary-nav" aria-label="主导航"><a href="./">项目</a><a href="developer-guide.html">开发者</a><a href="contributing.html">收录</a></nav></header>
+  <header class="site-header"><a class="brand" href="./">hub</a><nav class="primary-nav" aria-label="主导航"><a href="./">项目</a><a href="developer-guide.html">开发者</a><a href="contributing.html">收录</a></nav></header>
   <main class="page-shell"><section class="section-shell prose"><p class="eyebrow">公开边界</p><h1>Registry 边界</h1><p>Registry 只投影明确获准并在当前 Runtime 基线完成验证的固定项目事实。当前安装条目为 0；Catalog 收录和历史 RC.5 证据均不会自动转化为安装权限。</p><h2>五项独立事实</h2><ul><li><strong>无缝安装</strong>：固定包在 candidate 完成安装、就绪、真实功能、升级、禁用、移除和恢复后才标为已验证。</li><li><strong>失败可丢弃</strong>：通过失败注入证明只丢弃 candidate 或隔离进程，且启用前不触碰 current。</li><li><strong>热重载 / 热重启</strong>：作者声明 hot-reload 与 dispose 还不够，必须实际完成 dispose、重新激活和真实能力调用。</li><li><strong>接入协议</strong>：分别记录 Profile/Bundle、Repository Plugin、Cordis、MCP、Skill 或第三方；MCP 对齐 <code>2026-07-28</code> 和官方 <code>server.json</code>。</li><li><strong>社区收录</strong>：Topic 只发现；新投稿必须通过 <a href="package-manifest.schema.json"><code>package.json#dshWorkshop</code></a>、固定 commit、静态审核和独立测试。</li></ul><h2>当前原则</h2><ul><li>来源固定到公开仓库和不可变提交。</li><li>作者、许可、兼容与权限未知时保持未知。</li><li>自动扫描只形成审查事实，不代表安全背书。</li><li>没有当前基线安装证据的项目只提供公开来源与接入说明。</li><li>公开构建产物保持确定性且无签名；远端同步必须验证生产 Ed25519 签名，消费端内置快照则锁定相同摘要。</li></ul><p><a class="primary-action" href="./">返回项目目录</a></p></section></main>
-  <footer class="site-footer"><div class="footer-summary"><a class="footer-brand" href="./">DSH Hub Workshop</a><p>只展示明确允许公开的项目事实；未知能力保持未知。</p></div><nav class="footer-group" aria-label="站点资源"><strong class="footer-heading">站点资源</strong><div class="footer-links"><a href="./">项目目录</a><a href="developer-guide.html">开发者</a></div></nav><nav class="footer-group footer-ecosystem" aria-label="生态外链"><strong class="footer-heading">生态外链</strong><a class="footer-external-link" href="https://dshfind.com/" target="_blank" rel="noopener noreferrer"><span><b>dshfind</b><small>DSH 学习与分享社区</small></span><span aria-hidden="true">↗</span></a></nav></footer>
+  <footer class="site-footer"><div class="footer-summary"><a class="footer-brand" href="./">hub</a><p>只展示明确允许公开的项目事实；未知能力保持未知。</p></div><nav class="footer-group" aria-label="站点资源"><strong class="footer-heading">站点资源</strong><div class="footer-links"><a href="./">项目目录</a><a href="developer-guide.html">开发者</a></div></nav><nav class="footer-group footer-ecosystem" aria-label="生态外链"><strong class="footer-heading">生态外链</strong><a class="footer-external-link" href="https://omdsh.dev/" target="_blank" rel="noopener noreferrer"><span><b>Oh My DSH</b><small>独立开发者社区</small></span><span aria-hidden="true">↗</span></a></nav></footer>
 </body>
 </html>

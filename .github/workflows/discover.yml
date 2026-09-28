@@ -3,85 +3,58 @@ name: discover
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 */6 * * *'
+    - cron: "17 */6 * * *"
 
 permissions:
   contents: write
-  pull-requests: write
+  actions: write
 
 concurrency:
   group: hub-topic-discovery
   cancel-in-progress: false
 
 jobs:
-  topic-delta:
+  refresh:
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    timeout-minutes: 110
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
       - run: npm ci --ignore-scripts
-      - name: Preserve the prior discovery snapshot
-        run: |
-          cp topic-repositories.json "$RUNNER_TEMP/topic-repositories.previous.json"
-          cp external-evidence.json "$RUNNER_TEMP/external-evidence.previous.json"
-      - name: Fetch the complete adaptive Topic snapshot
+      - name: Read the full public Topic snapshot
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run topic:fetch
-      - id: delta
-        run: node scripts/topic-delta.mjs --previous "$RUNNER_TEMP/topic-repositories.previous.json" --output "$RUNNER_TEMP/topic-delta.json"
-      - name: Synchronize supplemental external evidence
-        continue-on-error: true
+      - name: Refresh public organization projects
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run external:sync
-      - id: external
-        name: Detect supplemental evidence changes
-        run: |
-          if cmp -s external-evidence.json "$RUNNER_TEMP/external-evidence.previous.json"; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Incrementally audit changed repositories
-        if: steps.delta.outputs.changed == 'true'
+        run: node scripts/refresh-organization.mjs
+      - name: Recheck repository evidence with bounded cache lifetime
         run: npm run topic:audit
-      - name: Rebuild discovery-only projections
-        if: steps.delta.outputs.changed == 'true'
+      - name: Rebuild discovery projections
         run: npm run topic:apply
-      - name: Validate the complete Hub
-        if: steps.delta.outputs.changed == 'true' || steps.external.outputs.changed == 'true'
+      - name: Probe current public manifests against current npm releases
+        run: npm run market:refresh
+      - name: Validate the exact public refresh
         run: npm run validate
-      - name: Commit one discovery-only branch
-        if: steps.delta.outputs.changed == 'true' || steps.external.outputs.changed == 'true'
-        env:
-          AUTOMATION_BRANCH: automation/topic-${{ github.run_id }}
+      - name: Commit validated discovery and probe data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git switch -c "$AUTOMATION_BRANCH"
-          git add -A
-          git commit -m "chore: refresh dsh-plugin discovery"
-          git push origin "$AUTOMATION_BRANCH"
-      - name: Open the discovery PR
-        if: steps.delta.outputs.changed == 'true' || steps.external.outputs.changed == 'true'
+          git add -- '*.json'
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: refresh marketplace discovery and probes"
+          git pull --rebase origin main
+          npm run validate
+          git diff --exit-code -- '*.json'
+          git push origin HEAD:main
+      - name: Publish through the signed deployment workflow
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          AUTOMATION_BRANCH: automation/topic-${{ github.run_id }}
-          AUTOMATION_TITLE: "chore: refresh dsh-plugin discovery"
-          AUTOMATION_BODY: |
-            Automated discovery-only refresh.
-
-            - Added: ${{ steps.delta.outputs.added }}
-            - Updated: ${{ steps.delta.outputs.updated }}
-            - Removed: ${{ steps.delta.outputs.removed }}
-            - Supplemental external evidence changed: ${{ steps.external.outputs.changed }}
-            - Topic membership grants no trust, verification, Admission, or installation authority.
-            - External probe results are pinned observations used only for prioritization and corroboration.
-        run: node scripts/github-automation-pr.mjs
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref main

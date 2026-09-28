@@ -5,26 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f4f5f7">
-    <meta name="description" content="为 DSH Hub Workshop 生成可审查的项目、版本与整合包 manifest。" data-i18n-content="publish.metaDescription">
-    <title>Author Studio - DSH Hub Workshop</title>
-    <link rel="icon" href="assets/atlas-symbol.png">
+    <meta name="description" content="为 DSH Hub 生成可审查的项目、版本与整合包 manifest。" data-i18n-content="publish.metaDescription">
+    <title>Author Studio - DSH Hub</title>
+    <link rel="icon" href="assets/organization-mark.png">
     <link rel="stylesheet" href="assets/styles.css?v=20260814-agent-submission-v1">
     <script src="assets/site.js?v=20260814-agent-submission-v1" data-i18n-src="assets/i18n.json?v=20260814-agent-submission-v1" defer></script>
     <script src="assets/publish.js?v=20260814-agent-submission-v1" defer></script>
     <script src="assets/distribution-studio.js?v=20260811-distribution-studio-v1" defer></script>
+    <link rel="stylesheet" href="assets/brand.css">
   </head>
   <body data-title-key="publish.metaTitle">
     <a class="skip-link" href="#manifest-form" data-i18n="publish.skip">跳到发布表单</a>
     <header class="site-header">
-      <a class="wordmark" href="./" aria-label="DSH Hub Workshop 首页" data-i18n-aria-label="site.homeLabel">
-        <img class="wordmark-mark" src="assets/atlas-symbol.png" alt="" width="34" height="34">
-        <span>DSH Hub Workshop</span>
-      </a>
+      <a class="wordmark" href="./" aria-label="DSH Hub 首页" data-i18n-aria-label="site.homeLabel">hub</a>
       <nav class="site-nav" aria-label="主导航" data-i18n-aria-label="site.navLabel">
-        <a href="./#discover" data-i18n="nav.discover">发现</a>
+        <a href="./#catalog" data-i18n="nav.discover">发现</a>
         <a href="configurations.html" data-i18n="nav.configurations">配置</a>
-        <a href="./#community" data-i18n="nav.community">讨论</a>
-        <a href="./#catalog" data-i18n="nav.projects">项目</a>
+        <a href="projects.html" data-i18n="nav.ecosystem">生态</a>
         <a href="developer-guide.html" data-i18n="nav.developers">开发者</a>
         <a href="publish.html" aria-current="page" data-i18n="nav.publish">发布</a>
       </nav>
@@ -38,13 +35,10 @@
 
     <main class="publish-shell">
       <header class="publish-intro">
-        <p class="hero-kicker" data-i18n="publish.kicker">Workshop 作者工具</p>
-        <h1 data-i18n="publish.title">把作品带到 Workshop。</h1>
-        <p data-i18n="publish.description">发布一个项目，或把已收录的固定 Release 组合成整合包；扩展申请会进入自动化预检。</p>
+        <p class="hero-kicker" data-i18n="publish.kicker">为创作者而建</p>
+        <h1 data-i18n="publish.title">把你的插件，带给更多人。</h1>
+        <p data-i18n="publish.description">分享你的独特想法。提交插件、工具或整合包，让更多 DSH 用户找到你的作品。</p>
         <div class="publish-boundaries">
-          <span data-i18n="publish.noToken">不读取 GitHub Token</span>
-          <span data-i18n="publish.noUpload">只提交结构化清单</span>
-          <span data-i18n="publish.noAutoTrust">不自动授予信任</span>
           <a href="developer-guide.html#ai-integration-prompt" data-i18n="publish.aiGuide">让 AI 帮我准备仓库</a>
           <a href="submission.schema.json" data-i18n="publish.schema">查看 v1 数据契约</a>
         </div>
@@ -337,6 +331,6 @@
         </div>
       </section>
     </main>
-    <footer class="site-footer doc-footer"><div class="footer-summary"><a class="footer-brand" href="./">DSH Hub Workshop</a><p data-i18n="publish.footer">Author Studio 自动准备待审核记录；人工批准、测试验证与 Registry 授权仍彼此独立。</p></div><nav class="footer-group" aria-label="站点资源"><strong class="footer-heading">站点资源</strong><div class="footer-links"><a href="contributing.html" data-i18n="nav.contribute">收录指南</a><a href="registry.html" data-i18n="nav.registry">协议</a></div></nav><nav class="footer-group footer-ecosystem" aria-label="生态外链"><strong class="footer-heading">生态外链</strong><a class="footer-external-link" href="https://dshfind.com/" target="_blank" rel="noopener noreferrer"><span><b>dshfind</b><small>DSH 学习与分享社区</small></span><span aria-hidden="true">↗</span></a></nav></footer>
+    <footer class="site-footer doc-footer"><div class="footer-summary"><a class="footer-brand" href="./">hub</a><p data-i18n="publish.footer">Author Studio 自动准备待审核记录；人工批准、测试验证与 Registry 授权仍彼此独立。</p></div><nav class="footer-group" aria-label="站点资源"><strong class="footer-heading">站点资源</strong><div class="footer-links"><a href="contributing.html" data-i18n="nav.contribute">收录指南</a><a href="registry.html" data-i18n="nav.registry">协议</a></div></nav><nav class="footer-group footer-ecosystem" aria-label="生态外链"><strong class="footer-heading">生态外链</strong><a class="footer-external-link" href="https://omdsh.dev/" target="_blank" rel="noopener noreferrer"><span><b>Oh My DSH</b><small>独立开发者社区</small></span><span aria-hidden="true">↗</span></a></nav></footer>
   </body>
 </html>

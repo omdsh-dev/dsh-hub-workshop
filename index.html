@@ -1,331 +1,268 @@
 <!doctype html>
 <html lang="zh-CN">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="#f7f7f5">
-    <meta name="description" content="面向 DeepSeek Harness 的公开社区工作坊：从 dsh-plugin Topic 核验真正的插件实现，并排除主仓、文档与无契约项目。" data-i18n-content="meta.description">
-    <title>DSH Hub Workshop - DSH 社区工作坊</title>
-    <link rel="icon" href="assets/atlas-symbol.png">
-    <link rel="stylesheet" href="assets/styles.css?v=20260815-compact">
-    <script src="assets/site.js" data-i18n-src="assets/i18n.json?v=20260815-compact" defer></script>
-    <script src="assets/app.js?v=20260815-compact" defer></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="发现 DSH 的更多可能。浏览社区插件、工具与工作流，查看源码和最新探测记录。"
+    />
+    <title>Hub · DSH 插件市场</title>
+    <link rel="icon" href="assets/organization-mark.png" type="image/png" />
+    <link
+      rel="preload"
+      href="assets/space-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/market.css" />
+    <script src="assets/market.js" type="module"></script>
   </head>
-  <body class="layout-mod" data-title-key="meta.title">
-    <a class="skip-link" href="#catalog" data-i18n="site.skip">跳到项目目录</a>
-
-    <header class="site-header">
-      <a class="wordmark" href="./" aria-label="DSH Hub Workshop 首页" data-i18n-aria-label="site.homeLabel">
-        <img class="wordmark-mark" src="assets/atlas-symbol.png" alt="" width="34" height="34">
-        <span>DSH Hub Workshop</span>
-      </a>
-      <nav class="site-nav" aria-label="主导航" data-i18n-aria-label="site.navLabel">
-        <a href="#discover" aria-current="page" data-i18n="nav.discover">发现</a>
-        <a href="configurations.html" data-i18n="nav.configurations">配置</a>
-        <a href="#community" data-i18n="nav.community">讨论</a>
-        <a href="#catalog" data-i18n="nav.projects">项目</a>
-        <a href="developer-guide.html" data-i18n="nav.developers">开发者</a>
-        <a href="publish.html" data-i18n="nav.publish">发布</a>
+  <body>
+    <a class="skip" href="#catalog">跳到插件目录</a>
+    <header class="market-header shell">
+      <a class="hub-wordmark" href="./" aria-label="Hub 首页">hub</a>
+      <nav aria-label="主导航">
+        <a
+          href="#catalog"
+          class="nav-active"
+          data-zh="探索插件"
+          data-en="Explore"
+          >探索插件</a
+        ><a href="projects.html" data-zh="生态项目" data-en="Ecosystem"
+          >生态项目</a
+        ><a href="developer-guide.html" data-zh="开发者" data-en="Developers"
+          >开发者</a
+        >
       </nav>
-      <div class="site-actions">
-        <div class="locale-switch" aria-label="语言" data-i18n-aria-label="site.languageLabel">
-          <button type="button" data-set-locale="zh" aria-pressed="true">中</button>
-          <span aria-hidden="true">/</span>
-          <button type="button" data-set-locale="en" aria-pressed="false">EN</button>
-        </div>
-        <button class="theme-toggle" type="button" data-theme-toggle>
-          <span class="visually-hidden" data-theme-label>暗色</span>
-          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="3.5"></circle>
-            <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"></path>
-          </svg>
-          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20 15.4A8 8 0 0 1 8.6 4a8.1 8.1 0 1 0 11.4 11.4Z"></path>
-          </svg>
-        </button>
-        <a class="github-star" href="https://github.com/omdsh-dev/dsh-hub-workshop" target="_blank" rel="noreferrer" aria-label="在 GitHub 上为 DSH Hub Workshop 加星" data-i18n-aria-label="site.githubStarLabel">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.7 14.9 8.6l6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9L12 2.7Z"></path></svg>
-          <span data-i18n="site.githubStar">Star</span>
-        </a>
+      <div class="header-actions">
+        <button id="locale-toggle" aria-label="Switch to English">EN</button
+        ><button id="theme-toggle" aria-label="切换颜色主题">◐</button
+        ><a class="submit-link" href="publish.html"
+          ><span data-zh="提交插件" data-en="Submit a plugin">提交插件</span>
+          <span aria-hidden="true">↗</span></a
+        >
       </div>
     </header>
-
     <main>
-      <section id="discover" class="discover-stage" aria-labelledby="hero-title">
-        <article class="spotlight-lead">
-          <img class="spotlight-lead-image" src="assets/workshop-hero-v2.webp" alt="" width="1600" height="900" decoding="async" fetchpriority="high">
-          <div class="spotlight-lead-copy">
-          <p class="hero-kicker" data-i18n="hero.kicker">DeepSeek Harness 社区工作坊</p>
-          <h1 id="hero-title" data-i18n="hero.title">找到适合你的扩展。</h1>
-          <p class="hero-copy" data-i18n="hero.description">浏览社区作品，核验固定来源，并按真实管理能力接入 Harness。</p>
-          <div class="hero-actions">
-            <a class="primary-action" href="#catalog" data-i18n="hero.browse">浏览 Workshop</a>
-            <a class="secondary-action" href="publish.html" data-i18n="hero.publish">发布作品</a>
+      <section class="intro shell" aria-labelledby="hero-title">
+        <div class="intro-label">
+          <span>THE DSH PLUGIN MARKETPLACE</span
+          ><span class="edition">OPEN TO POSSIBILITY</span>
+        </div>
+        <div class="intro-body">
+          <h1 id="hero-title">
+            <span data-zh="让想法，" data-en="Make room">让想法，</span
+            ><br /><em data-zh="有更多可能。" data-en="for more."
+              >有更多可能。</em
+            >
+          </h1>
+          <div class="intro-aside">
+            <span class="intro-index" aria-hidden="true">01 / DISCOVER</span>
+            <p
+              data-zh="让工具顺手，让工作流自由。\n在这里，找到你的下一款 DSH 插件。"
+              data-en="Tools that fit. Workflows that flow.\nFind your next DSH plugin, right here."
+            >
+              让工具顺手，让工作流自由。<br />在这里，找到你的下一款 DSH 插件。
+            </p>
+            <a href="#catalog" class="browse-link"
+              ><span data-zh="开始探索" data-en="Start exploring">开始探索</span
+              ><span aria-hidden="true">↓</span></a
+            >
           </div>
-          </div>
-        </article>
-        <div id="spotlight-side" class="spotlight-side" aria-live="polite" aria-busy="true">
-          <div class="spotlight-project spotlight-placeholder"></div>
-          <div class="spotlight-project spotlight-placeholder"></div>
+        </div>
+        <form id="search-form" class="market-search" role="search">
+          <label
+            for="market-search"
+            class="search-label"
+            data-zh="搜索插件"
+            data-en="Find a plugin"
+            >搜索插件</label
+          ><input
+            id="market-search"
+            type="search"
+            autocomplete="off"
+            placeholder="搜索名字、作者，或你想做的事…"
+            aria-label="搜索名字、作者或功能"
+          /><button type="submit" aria-label="搜索">↗</button>
+        </form>
+        <div class="search-foot">
+          <span
+            data-zh="从一个想法开始，找到合适的工具。"
+            data-en="Start with an idea. Find the right tool."
+            >从一个想法开始，找到合适的工具。</span
+          ><span
+            ><kbd>/</kbd>
+            <span data-zh="快捷搜索" data-en="to search">快捷搜索</span></span
+          >
         </div>
       </section>
-
-      <section class="discovery-dock" aria-label="Workshop 概览" data-i18n-aria-label="workshop.navLabel">
-        <dl class="hero-stats" aria-label="目录统计" data-i18n-aria-label="hero.statsLabel">
-            <div><dt id="stat-packages">-</dt><dd data-i18n="hero.packages">个项目</dd></div>
-            <div><dt id="stat-repositories">-</dt><dd data-i18n="hero.repositories">个仓库</dd></div>
-            <div><dt id="stat-categories">-</dt><dd data-i18n="hero.categories">个分类</dd></div>
-          </dl>
-        <nav class="workshop-nav" aria-label="Workshop 区域" data-i18n-aria-label="workshop.navLabel">
-          <a href="#discover" data-i18n="nav.discover">发现</a>
-          <a href="#collections" data-i18n="nav.collections">合集</a>
-          <a href="#community" data-i18n="nav.community">讨论</a>
-          <a href="#catalog" data-i18n="nav.allProjects">全部项目</a>
-          <a href="#authors" data-i18n="nav.authors">作者</a>
-        </nav>
-      </section>
-
-      <section class="featured" aria-labelledby="featured-title">
-        <div class="featured-heading">
+      <section
+        class="catalog-section shell"
+        id="catalog"
+        aria-labelledby="catalog-title"
+      >
+        <div class="section-heading">
           <div>
-            <h2 id="featured-title" data-i18n="featured.title">社区趋势</h2>
-            <p data-i18n="featured.description">按 GitHub Star 浏览高星项目，按仓库最近一次 Commit 浏览更新，并单独查看支持失败恢复的安装项目。</p>
+            <span class="eyebrow">THE COLLECTION</span>
+            <h2
+              id="catalog-title"
+              data-zh="发现好插件"
+              data-en="Find your next favorite"
+            >
+              发现好插件
+            </h2>
           </div>
-          <div id="featured-tabs" class="featured-tabs" role="group" aria-label="发现栏目" data-i18n-aria-label="featured.tabsLabel">
-            <button type="button" data-featured-mode="stars" aria-pressed="true" data-i18n="featured.mode.stars">高星项目</button>
-            <button type="button" data-featured-mode="recent" aria-pressed="false" data-i18n="featured.mode.recent">Commit 最近更新</button>
-            <button type="button" data-featured-mode="recoverable" aria-pressed="false" data-i18n="featured.mode.recoverable">可恢复安装</button>
-          </div>
-        </div>
-        <div id="featured-rail" class="featured-rail" data-can-previous="false" data-can-next="true">
-          <button id="featured-previous" class="featured-arrow featured-arrow-previous" type="button" aria-label="向左浏览" data-i18n-aria-label="featured.previous" disabled>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5-7 7 7 7"></path></svg>
-          </button>
-          <div id="featured-list" class="featured-list" aria-live="polite" aria-busy="true">
-            <div class="featured-item featured-placeholder"></div>
-            <div class="featured-item featured-placeholder"></div>
-            <div class="featured-item featured-placeholder"></div>
-            <div class="featured-item featured-placeholder"></div>
-          </div>
-          <button id="featured-next" class="featured-arrow featured-arrow-next" type="button" aria-label="向右浏览" data-i18n-aria-label="featured.next">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 7 7-7 7"></path></svg>
+          <button id="sync-info" class="sync-info">
+            <span class="status-dot"></span
+            ><span id="sync-label">正在读取最新快照…</span
+            ><span aria-hidden="true">↗</span>
           </button>
         </div>
+        <div id="categories" class="category-tabs" aria-label="插件分类"></div>
+        <div class="catalog-toolbar">
+          <div
+            class="result-count"
+            id="result-count"
+            role="status"
+            aria-live="polite"
+          >
+            正在加载插件…
+          </div>
+          <div class="catalog-controls">
+            <label class="filter-label"
+              ><input id="confirmed-only" type="checkbox" /><span
+                data-zh="仅有插件证据"
+                data-en="Source evidence only"
+                >仅有插件证据</span
+              ></label
+            ><label class="sr-only" for="sort">排序方式</label
+            ><select id="sort">
+              <option value="stars">最多收藏</option>
+              <option value="updated">最近更新</option>
+              <option value="created">最新收录</option>
+              <option value="name">名称排序</option>
+            </select>
+            <div class="view-switch">
+              <button
+                data-view="grid"
+                aria-label="卡片视图"
+                aria-pressed="true"
+              >
+                ▦</button
+              ><button
+                data-view="list"
+                aria-label="列表视图"
+                aria-pressed="false"
+              >
+                ☰
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="project-grid" class="project-grid" aria-busy="true">
+          <div class="loading-message">正在加载公开插件目录…</div>
+        </div>
+        <nav
+          id="catalog-pagination"
+          class="catalog-pagination"
+          aria-label="目录分页"
+        ></nav>
+        <p
+          class="catalog-note"
+          data-zh="收录来自公开仓库；探测记录反映声明与文件状态。请在使用前查看项目说明。"
+          data-en="Listed from public repositories. Probes describe declarations and files. Read the project documentation before use."
+        >
+          收录来自公开仓库；探测记录反映声明与文件状态。请在使用前查看项目说明。
+        </p>
+        <noscript
+          ><p>
+            启用 JavaScript 以搜索目录，或读取
+            <a href="marketplace.json">完整插件 JSON</a>。
+          </p></noscript
+        >
       </section>
-
-      <section class="workshop-entry" aria-labelledby="workshop-title">
-        <div class="workshop-heading">
+      <section class="create-section">
+        <div class="shell create-inner">
           <div>
-            <h2 id="workshop-title" data-i18n="workshop.title">按管理能力浏览</h2>
-            <p data-i18n="workshop.description">同一工作坊，清楚区分 Profile Bundle 事务、Repository Plugin 配置托管和仅提供接入说明的扩展。</p>
+            <span class="eyebrow">MADE BY THE COMMUNITY</span>
+            <h2
+              data-zh="下一个好工具，\n也许来自你。"
+              data-en="The next good thing\ncould be yours."
+            >
+              下一个好工具，<br />也许来自你。
+            </h2>
           </div>
-          <a href="contributing.html" data-i18n="workshop.submit">发布你的扩展</a>
-        </div>
-        <div id="workshop-modes" class="workshop-modes" aria-live="polite" aria-busy="true">
-          <div class="workshop-mode mode-placeholder"></div>
-          <div class="workshop-mode mode-placeholder"></div>
-          <div class="workshop-mode mode-placeholder"></div>
-        </div>
-      </section>
-
-      <div class="workshop-community-pair">
-        <section id="collections" class="collections-section" aria-labelledby="collections-title">
-          <div class="section-heading-stack">
-            <h2 id="collections-title" data-i18n="collections.title">合集</h2>
-            <p data-i18n="collections.description">一组经过固定版本解析的 Profile Bundle，在同一个 candidate 中原子安装。</p>
-          </div>
-          <div id="collection-list" class="collection-list" aria-live="polite" aria-busy="true">
-            <div class="collection-card collection-placeholder"></div>
-            <div class="collection-card collection-placeholder"></div>
-          </div>
-        </section>
-
-        <section id="community" class="community-section" aria-labelledby="community-title">
-          <div class="community-heading">
-            <div>
-              <h2 id="community-title" data-i18n="community.title">社区讨论</h2>
-              <p data-i18n="community.description">聚合 GitHub Discussions 的标题、分类和状态，正文与回复仍留在 GitHub。</p>
-            </div>
-        <a href="https://github.com/omdsh-dev/dsh-hub-workshop/issues" data-i18n="community.issues">打开 Issues</a>
-          </div>
-          <div id="discussion-list" class="discussion-list" aria-live="polite" aria-busy="true"></div>
-        </section>
-      </div>
-
-      <section id="catalog" class="catalog mod-browser" aria-labelledby="catalog-title">
-        <div class="catalog-shell" data-view="grid">
-          <aside class="filter-panel" aria-label="目录筛选" data-i18n-aria-label="catalog.filtersLabel">
-            <label class="search-field filter-search">
-              <span data-i18n="catalog.searchLabel">搜索</span>
-              <input id="search" type="search" placeholder="名称、作者或功能" data-i18n-placeholder="catalog.searchPlaceholder" autocomplete="off">
-              <kbd>/</kbd>
-            </label>
-            <label class="filter-kind">
-              <span data-i18n="catalog.typeLabel">扩展类型</span>
-              <select id="kind-filter" aria-label="扩展类型" data-i18n-aria-label="catalog.typeLabel"></select>
-            </label>
-            <div id="catalog-scope" class="catalog-scope compact-scope" role="group" aria-label="收录状态" data-i18n-aria-label="catalog.scopeLabel">
-              <button type="button" data-catalog-scope="all" aria-pressed="true"><span data-i18n="catalog.scope.all">全部</span><strong data-scope-count="all">-</strong></button>
-              <button type="button" data-catalog-scope="reviewed" aria-pressed="false"><span data-i18n="catalog.scope.reviewed">已收录</span><strong data-scope-count="reviewed">-</strong></button>
-              <button type="button" data-catalog-scope="candidates" aria-pressed="false"><span data-i18n="catalog.scope.candidates">待审核</span><strong data-scope-count="candidates">-</strong></button>
-            </div>
-            <details id="advanced-filter" class="advanced-filter">
-              <summary>
-                <span data-i18n="catalog.moreFilters">更多筛选</span>
-                <strong id="active-filter-count" class="active-filter-count" hidden>0</strong>
-                <span class="advanced-filter-chevron" aria-hidden="true">⌄</span>
-              </summary>
-              <div class="advanced-filter-panel">
-                <div class="advanced-filter-heading">
-                  <strong data-i18n="catalog.refineResults">细化结果</strong>
-                  <button id="reset-filters-top" class="text-button" type="button" data-i18n="catalog.reset">重置</button>
-                </div>
-                <div class="advanced-filter-controls">
-                  <label>
-                    <span data-i18n="catalog.installLabel">管理能力</span>
-                    <select id="install-filter" aria-label="管理能力" data-i18n-aria-label="catalog.installLabel"></select>
-                  </label>
-                  <label>
-                    <span data-i18n="catalog.channelLabel">发布通道</span>
-                    <select id="channel-filter" aria-label="发布通道" data-i18n-aria-label="catalog.channelLabel"></select>
-                  </label>
-                </div>
-                <div class="filter-category-heading" data-i18n="catalog.categoryLabel">按分类筛选</div>
-                <div id="category-filters" class="category-filters" aria-label="按分类筛选" data-i18n-aria-label="catalog.categoryLabel"></div>
-                <a class="ecosystem-route" href="projects.html">
-                  <span data-i18n="catalog.ecosystemLink">生态项目移到独立页面</span>
-                  <strong data-ecosystem-count>-</strong>
-                  <span aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </details>
-          </aside>
-
-          <div class="results-panel">
-            <div class="catalog-heading">
-              <div>
-                <h2 id="catalog-title" data-i18n="catalog.title">浏览全部插件</h2>
-                <p class="catalog-summary">
-                  <span data-i18n="catalog.showing">当前显示</span>
-                  <strong id="result-count">-</strong>
-                  <span data-i18n="catalog.results">个项目</span>
-                  <span aria-hidden="true">·</span>
-                  <span data-i18n="catalog.updated">更新于</span>
-                  <time id="snapshot-time">-</time>
-                </p>
-              </div>
-              <div class="results-tools">
-                <div class="catalog-view" role="group" aria-label="展示方式" data-i18n-aria-label="catalog.viewLabel">
-                  <span data-i18n="catalog.viewLabel">展示方式</span>
-                  <div class="catalog-view-options">
-                    <button type="button" data-catalog-view="grid" aria-pressed="true" data-i18n="catalog.gridView">网格</button>
-                    <button type="button" data-catalog-view="list" aria-pressed="false" data-i18n="catalog.listView">列表</button>
-                  </div>
-                </div>
-                <label class="results-sort">
-                  <span data-i18n="catalog.sortLabel">排序</span>
-                  <select id="sort-order" aria-label="排序" data-i18n-aria-label="catalog.sortLabel"></select>
-                </label>
-              </div>
-            </div>
-
-            <aside class="safety-note compact-safety-note" role="note" aria-labelledby="safety-title">
-              <div>
-                <strong id="safety-title" data-i18n="safety.title">使用前请自行核验</strong>
-                <p data-i18n="safety.description">市场收录只说明项目分类与固定来源。插件安装仍须通过独立门禁，基础设施与发行项目仅供浏览，不因此获得安装权限。</p>
-              </div>
-              <a href="registry.html" data-i18n="catalog.registryLink">查看安装门禁</a>
-            </aside>
-
-            <div id="catalog-list" class="catalog-list" aria-live="polite" aria-busy="true">
-              <div class="package-card skeleton-card"></div>
-              <div class="package-card skeleton-card"></div>
-              <div class="package-card skeleton-card"></div>
-            </div>
-            <div id="empty-state" class="empty-state" hidden>
-              <h3 data-i18n="empty.title">没有找到匹配的项目</h3>
-              <p data-i18n="empty.description">试试其他关键词，或清空当前筛选。</p>
-              <button id="reset-filters" type="button" data-i18n="catalog.reset">重置筛选</button>
-            </div>
-            <div id="catalog-pagination" class="catalog-pagination" hidden>
-              <p><span id="rendered-count">0</span> / <span id="filtered-count">0</span></p>
-              <button id="load-more" type="button" data-i18n="catalog.loadMore">显示更多</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="principles" aria-labelledby="principles-title">
-        <div class="principles-heading">
-          <h2 id="principles-title" data-i18n="principles.title">一个清晰、可维护的目录</h2>
-          <p data-i18n="principles.description">这里分层索引插件与生态项目，不机械复制仓库列表，也不把市场展示等同于安装权限或安全审查。</p>
-        </div>
-        <div class="principle-list">
-          <article>
-            <h3 data-i18n="principles.entityTitle">分层目录</h3>
-            <p data-i18n="principles.entityBody">插件按独立实现收录，基础设施与发行项目单独策展，文档和热度项目不混入市场。</p>
-          </article>
-          <article>
-            <h3 data-i18n="principles.traceTitle">生产权留在作者仓库</h3>
-            <p data-i18n="principles.traceBody">作者维护源码与发布，Workshop 只集中索引、固定来源、审核状态和信誉事实。</p>
-          </article>
-          <article>
-            <h3 data-i18n="principles.installTitle">安装权独立</h3>
-            <p data-i18n="principles.installBody">市场可见、插件身份、基线验证和 Registry 准入分别记录，任何一项都不能替代另一项。</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="authors" class="authors-section" aria-labelledby="authors-title">
-        <div class="authors-layout">
-          <div class="section-heading-stack">
-            <h2 id="authors-title" data-i18n="authors.title">作者与发布</h2>
-            <p data-i18n="authors.description">作者不需要理解整个 Registry。固定版本、说明权限，再由自动化形成可审查的提交。</p>
-            <p id="author-summary" class="author-summary" aria-live="polite"></p>
-            <a class="primary-action" href="publish.html" data-i18n="authors.openStudio">打开 Author Studio</a>
-          </div>
-          <div class="author-directory">
-            <div id="author-list" class="author-list" aria-live="polite" aria-busy="true"></div>
-            <button id="author-toggle" class="author-toggle" type="button" aria-controls="author-list" aria-expanded="false" hidden></button>
+          <div>
+            <p
+              data-zh="把你做的插件，带给更多人。"
+              data-en="Bring what you built to more people."
+            >
+              把你做的插件，带给更多人。
+            </p>
+            <a href="publish.html" class="create-link"
+              ><span data-zh="发布你的插件" data-en="Submit your plugin"
+                >发布你的插件</span
+              ><span aria-hidden="true">↗</span></a
+            >
           </div>
         </div>
       </section>
     </main>
-
-    <footer class="site-footer">
-      <div class="footer-summary">
-        <a class="footer-brand" href="./">DSH Hub Workshop</a>
-        <p data-i18n="footer.notice">DSH Hub Workshop 只做索引，不对插件内容做安全担保。是否信任与安装，请自行核验。</p>
+    <footer class="market-footer shell">
+      <div class="footer-top">
+        <a class="hub-wordmark" href="./">hub</a>
+        <p
+          data-zh="为 DSH，也为每一种新想法。"
+          data-en="For DSH. For every new idea."
+        >
+          为 DSH，也为每一种新想法。
+        </p>
+        <nav aria-label="更多资源">
+          <a href="projects.html" data-zh="生态项目" data-en="Ecosystem"
+            >生态项目</a
+          >
+          <a href="developer-guide.html" data-zh="开发者" data-en="Developers"
+            >开发者</a
+          >
+          <a
+            href="contributing.html"
+            data-zh="关于收录"
+            data-en="Listing policy"
+            >关于收录</a
+          ><a href="marketplace.json">JSON</a
+          ><a
+            href="https://github.com/omdsh-dev/dsh-hub-workshop"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub ↗</a
+          >
+        </nav>
       </div>
-      <nav class="footer-group" aria-label="站点资源" data-i18n-aria-label="footer.resources">
-        <strong class="footer-heading" data-i18n="footer.resources">站点资源</strong>
-        <div class="footer-links">
-          <a href="catalog.json">JSON API</a>
-          <a href="collections-v1.json" data-i18n="footer.collectionsApi">合集 API</a>
-          <a href="community-v1.json" data-i18n="footer.communityApi">讨论 API</a>
-          <a href="contributing.html" data-i18n="nav.contribute">收录</a>
-          <a href="https://github.com/orgs/omdsh-dev/repositories">omdsh-dev</a>
-        </div>
-      </nav>
-      <nav class="footer-group footer-ecosystem" aria-label="生态外链" data-i18n-aria-label="footer.ecosystem">
-        <strong class="footer-heading" data-i18n="footer.ecosystem">生态外链</strong>
-        <a class="footer-external-link" href="https://dshfind.com/" target="_blank" rel="noopener noreferrer">
-          <span><b>dshfind</b><small data-i18n="footer.dshfindDescription">DSH 学习与分享社区</small></span>
-          <span aria-hidden="true">↗</span>
-        </a>
-      </nav>
+      <div class="footer-bottom">
+        <a
+          class="brand-origin"
+          href="https://omdsh.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img
+            src="assets/organization-mark.png"
+            alt=""
+            width="24"
+            height="24"
+          />BY OH MY DSH · INDEPENDENT COMMUNITY ↗</a
+        ><span>© 2026 Hub</span>
+      </div>
     </footer>
-
-    <dialog id="package-dialog" class="package-dialog" aria-labelledby="dialog-title">
-      <button class="dialog-close" type="button" aria-label="关闭详情" data-i18n-aria-label="dialog.close"><span data-i18n="dialog.closeText">关闭</span></button>
-      <div id="dialog-content"></div>
+    <dialog id="detail-dialog" aria-labelledby="detail-title">
+      <div class="dialog-top">
+        <span>HUB / PLUGIN DETAILS</span
+        ><button id="detail-close" aria-label="关闭详情">×</button>
+      </div>
+      <div id="detail-content"></div>
     </dialog>
-
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-    <noscript>
-      <div class="noscript">This catalog needs JavaScript for search, filters, and language switching.</div>
-    </noscript>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
   </body>
 </html>

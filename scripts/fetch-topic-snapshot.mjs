@@ -1,6 +1,8 @@
 #!/usr/bin/env node
+import { setDefaultResultOrder } from "node:dns";
+setDefaultResultOrder("ipv4first");
 
-import { readFile, writeFile } from 'node:fs/promises'
+import { readFile, writeFile, mkdir, rename } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import {
   COMMUNITY_PLUGIN_CREATED_AT_CUTOFF,
@@ -18,7 +20,7 @@ let lastRequestAt = 0
 
 const wait = (milliseconds) => new Promise((resolveWait) => setTimeout(resolveWait, milliseconds))
 
-async function search(query, page) {
+async function search(query, page, attempt = 0) {
   const elapsed = Date.now() - lastRequestAt
   if (elapsed < REQUEST_INTERVAL_MS) await wait(REQUEST_INTERVAL_MS - elapsed)
   const url = new URL('https://api.github.com/search/repositories')
@@ -28,7 +30,9 @@ async function search(query, page) {
   url.searchParams.set('sort', 'updated')
   url.searchParams.set('order', 'desc')
   lastRequestAt = Date.now()
+  try {
   const response = await fetch(url, {
+    signal: AbortSignal.timeout(20000),
     headers: {
       accept: 'application/vnd.github+json',
       'user-agent': USER_AGENT,
@@ -43,6 +47,12 @@ async function search(query, page) {
   const value = await response.json()
   if (value.incomplete_results) throw new Error(`GitHub Search returned incomplete results for ${query}`)
   return value
+  } catch (error) {
+    if (attempt >= 4) throw error
+    process.stderr.write(`Retrying GitHub search (${attempt + 1}/4): ${query} page ${page}\n`)
+    await wait(Math.min(2000 * 2 ** attempt, 20000))
+    return search(query, page, attempt + 1)
+  }
 }
 
 function searchInstant(milliseconds) {
@@ -64,12 +74,24 @@ function rangeQuery(start, end) {
 // until every leaf query is independently below the cap. GitHub supports one
 // inclusive range qualifier, so adjacent partitions advance by one second to
 // remain non-overlapping without dropping a boundary timestamp.
+const checkpointPath = resolve(ROOT, '.discovery-cache/partitions.json')
+await mkdir(resolve(ROOT, '.discovery-cache'), { recursive: true })
+const checkpoint = await readFile(checkpointPath, 'utf8').then(JSON.parse).catch(() => ({}))
 const partitions = []
 const repositoriesByName = new Map()
 let observed = 0
 let observedPages = 0
 async function captureRange(start, end, attempt = 1) {
   const query = rangeQuery(start, end)
+  const cached = checkpoint[query]
+  if (cached && Date.now() - Date.parse(cached.at) < 6 * 3600000) {
+    partitions.push(query)
+    observed += cached.items.length
+    observedPages += Math.ceil(cached.items.length / 100)
+    for (const repository of cached.items) repositoriesByName.set(repository.full_name.toLocaleLowerCase('en-US'), repository)
+    process.stderr.write(`Resumed ${query} (${cached.items.length})\n`)
+    return
+  }
   const first = await search(query, 1)
   if (first.total_count > 1_000) {
     const midpoint = Math.floor((start + end) / 2_000) * 1_000
@@ -99,6 +121,9 @@ async function captureRange(start, end, attempt = 1) {
     await captureRange(start, end, attempt + 1)
     return
   }
+  checkpoint[query] = { at: new Date().toISOString(), items: [...partitionRepositories.values()] }
+  await writeFile(checkpointPath + '.tmp', JSON.stringify(checkpoint))
+  await rename(checkpointPath + '.tmp', checkpointPath)
   partitions.push(query)
   observed += first.total_count
   observedPages += pages

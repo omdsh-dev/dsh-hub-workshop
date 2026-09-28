@@ -5,22 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f7f7f5">
-    <title>插件开发与市场指南 - DSH Hub Workshop</title>
-    <link rel="icon" href="assets/atlas-symbol.png">
+    <title>插件开发与市场指南 - DSH Hub</title>
+    <link rel="icon" href="assets/organization-mark.png">
     <link rel="stylesheet" href="assets/styles.css?v=20260814-agent-submission-v1">
     <script src="assets/site.js?v=20260814-agent-submission-v1" data-i18n-src="assets/i18n.json?v=20260814-agent-submission-v1" defer></script>
+    <link rel="stylesheet" href="assets/brand.css">
   </head>
   <body data-title-zh="插件开发与市场指南" data-title-en="Plugin Development and Marketplace Guide">
     <header class="site-header">
-      <a class="wordmark" href="./" aria-label="DSH Hub Workshop 首页" data-i18n-aria-label="site.homeLabel">
-        <img class="wordmark-mark" src="assets/atlas-symbol.png" alt="" width="34" height="34">
-        <span>DSH Hub Workshop</span>
-      </a>
+      <a class="wordmark" href="./" aria-label="DSH Hub 首页" data-i18n-aria-label="site.homeLabel">hub</a>
       <nav class="site-nav" aria-label="主导航" data-i18n-aria-label="site.navLabel">
-        <a href="./#discover" data-i18n="nav.discover">发现</a>
+        <a href="./#catalog" data-i18n="nav.discover">发现</a>
         <a href="configurations.html" data-i18n="nav.configurations">配置</a>
-        <a href="./#community" data-i18n="nav.community">讨论</a>
-        <a href="./#catalog" data-i18n="nav.projects">项目</a>
+        <a href="projects.html" data-i18n="nav.ecosystem">生态</a>
         <a href="developer-guide.html" aria-current="page" data-i18n="nav.developers">开发者</a>
         <a href="publish.html" data-i18n="nav.publish">发布</a>
       </nav>
@@ -45,7 +42,7 @@
     <main class="doc-shell">
       <div data-locale-content="zh">
 <h1>插件开发与市场指南</h1>
-<p>这份指南面向希望把 Skill、MCP、Cordis 扩展、Web UI 或其他社区项目放进 DSH Hub Workshop 的开发者。目标有两个：</p>
+<p>这份指南面向希望把 Skill、MCP、Cordis 扩展、Web UI 或其他社区项目放进 DSH Hub 的开发者。目标有两个：</p>
 <ol>
 <li><strong>少量修改就能进入市场发现</strong>：第三方项目不需要改变现有分发方式，也不要求发布 npm 包。</li>
 <li><strong>讲清当前公开接入路径</strong>：Profile Bundle 可进入事务验证；Repository Plugin 只保留为配置候选并自动阻断；其余项目使用无执行权限的引导接入。</li>
@@ -63,11 +60,11 @@
 <p>这条路径不要求改造项目结构。自动化只读取固定 commit，不执行项目代码。扫描完整且没有高风险信号的项目可进入低风险收录流程；其余项目会保留在待审核或待修复清单。</p>
 <p><a data-localized-anchor="ai-integration-prompt"></a></p>
 <h2>让 AI 帮你完成最小接入</h2>
-<p>如果项目已经存在，可以把下面的 Prompt 交给能访问仓库的编码 AI。它会先判断项目的真实形态，再做最小改动；<strong>不会为了获得安装按钮强行改造成 Profile Bundle，也不会直接修改 DSH Hub Workshop 的 Catalog、Registry 或生成文件。</strong></p>
+<p>如果项目已经存在，可以把下面的 Prompt 交给能访问仓库的编码 AI。它会先判断项目的真实形态，再做最小改动；<strong>不会为了获得安装按钮强行改造成 Profile Bundle，也不会直接修改 DSH Hub 的 Catalog、Registry 或生成文件。</strong></p>
 <p>推荐流程是：AI 修改并验证作者仓库 → 作者审阅并把固定 commit 推到公开远端 → Agent 生成、校验并展示申请 → 作者确认这一次 GitHub 写入 → Agent 创建 Issue → GitHub 自动化建立待审核 PR。Agent 生成的清单和自动预检都不代表安全审核或官方认证。</p>
 <div class="doc-prompt-actions"><button type="button" class="doc-copy-prompt" data-copy-next-code data-copy-label="复制给 AI" data-copy-success="已复制">复制给 AI</button></div>
 
-<pre><code class="language-text">你正在当前插件仓库中工作。请在不重写项目核心、不增加第二套 Loader 或常驻 daemon、不把第三方格式伪装成官方协议的前提下，以最小修改让它可以接入 DSH Hub Workshop。
+<pre><code class="language-text">你正在当前插件仓库中工作。请在不重写项目核心、不增加第二套 Loader 或常驻 daemon、不把第三方格式伪装成官方协议的前提下，以最小修改让它可以接入 DSH Hub。
 
 工作前：
 - 完整读取仓库内适用的 AGENTS.md、README、许可文件、package manifest、lockfile、入口、构建配置和测试。
@@ -113,7 +110,7 @@
 <tr>
 <th>项目的实际形态</th>
 <th>市场标记</th>
-<th>DSH Hub Workshop / OMDSH 的行为</th>
+<th>DSH Hub / OMDSH 的行为</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -233,7 +230,7 @@ description: 当用户要求整理会话时，生成带结论、证据和后续�
 <p>维护者可分别运行 <code>npm run harness:skill</code>、<code>npm run harness:mcp</code> 和 <code>npm run harness:profile</code>，或用 <code>npm run harness:verify</code> 按顺序回归仓库内夹具。这些夹具报告不能替代真实投稿证据；真实模式会自行核对 Git <code>origin</code>、HEAD、投稿子路径和干净工作树。Profile adapter 使用真实 RC.6 CLI 验证 candidate、能力调用、故障丢弃、代际切换、同 PID 热重载、升级、禁用、移除和 previous 恢复；MCP adapter 使用 <code>server/discover → tools/list → tools/call</code> 并注入子进程崩溃；Skill adapter 永不执行 Skill，只做 frontmatter、引用、路径与危险命令静态检查。</p>
 <p>当前隔离执行器要求 macOS <code>sandbox-exec</code>，并在运行前证明工作区外写入与网络 socket 均被拒绝。没有等价强制隔离器的平台必须失败关闭，不能退化为无沙箱执行。</p>
 <h2>编写 MCP</h2>
-<p>MCP 继续遵循 MCP 自己的协议和进程边界，DSH Hub Workshop 不发明另一套 MCP SDK。当前对齐协议为 <code>2026-07-28</code>；该版本按请求携带协议版本，<code>2025-11-25</code> 及更早属于 <code>initialize</code> 会话式旧协议。投稿必须复用官方 <code>server.json</code>（当前 Registry schema <code>2025-12-11</code>），npm 包的 <code>package.json#mcpName</code> 必须与 <code>server.json#name</code> 一致。</p>
+<p>MCP 继续遵循 MCP 自己的协议和进程边界，DSH Hub 不发明另一套 MCP SDK。当前对齐协议为 <code>2026-07-28</code>；该版本按请求携带协议版本，<code>2025-11-25</code> 及更早属于 <code>initialize</code> 会话式旧协议。投稿必须复用官方 <code>server.json</code>（当前 Registry schema <code>2025-12-11</code>），npm 包的 <code>package.json#mcpName</code> 必须与 <code>server.json#name</code> 一致。</p>
 <ul>
 <li>使用可复现的启动命令，并能在标准输入输出关闭时正常退出；</li>
 <li>在 README 中列出工具、资源、环境变量和网络目标；</li>
@@ -390,7 +387,7 @@ description: 当用户要求整理会话时，生成带结论、证据和后续�
 <tr>
 <th>社区</th>
 <th>值得复用的部分</th>
-<th>DSH Hub Workshop 的取舍</th>
+<th>DSH Hub 的取舍</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -453,7 +450,7 @@ description: 当用户要求整理会话时，生成带结论、证据和后续�
 
 <div data-locale-content="en" hidden>
 <h1>Plugin Development and Marketplace Guide</h1>
-<p>This guide is for authors who want to publish a Skill, MCP server, Cordis extension, Web UI, or another community project in DSH Hub Workshop. It has two goals:</p>
+<p>This guide is for authors who want to publish a Skill, MCP server, Cordis extension, Web UI, or another community project in DSH Hub. It has two goals:</p>
 <ol>
 <li><strong>Discovery with minimal changes.</strong> Third-party projects keep their existing distribution format, and npm publication is not required.</li>
 <li><strong>A clear current public path.</strong> Profile Bundles can enter transactional verification; Repository Plugins remain blocked configuration candidates; every other project receives non-executable guided integration.</li>
@@ -471,11 +468,11 @@ description: 当用户要求整理会话时，生成带结论、证据和后续�
 <p>This path requires no format conversion. Automation reads the pinned commit without executing project code. Complete low-risk results can enter the low-risk admission path; other results remain in review or needs-fix.</p>
 <p><a data-localized-anchor="ai-integration-prompt"></a></p>
 <h2>Let AI prepare the minimum integration</h2>
-<p>Give the prompt below to a coding AI that can access an existing project repository. It first identifies the project&#39;s real format, then makes the smallest necessary changes. <strong>It must not force a Profile Bundle merely to obtain an install button or directly edit DSH Hub Workshop Catalog, Registry, or generated artifacts.</strong></p>
+<p>Give the prompt below to a coding AI that can access an existing project repository. It first identifies the project&#39;s real format, then makes the smallest necessary changes. <strong>It must not force a Profile Bundle merely to obtain an install button or directly edit DSH Hub Catalog, Registry, or generated artifacts.</strong></p>
 <p>The intended flow is: AI updates and validates the author&#39;s repository → the author reviews and pushes a pinned commit to the public remote → the Agent generates, validates, and shows the application → the author confirms that GitHub write → the Agent opens the Issue → GitHub automation creates a pending-review PR. Neither the manifest nor automated preflight is a security review or official certification.</p>
 <div class="doc-prompt-actions"><button type="button" class="doc-copy-prompt" data-copy-next-code data-copy-label="Copy for AI" data-copy-success="Copied">Copy for AI</button></div>
 
-<pre><code class="language-text">You are working in the current plugin repository. Make the minimum changes needed for DSH Hub Workshop integration without rewriting the core project, adding a second Loader or persistent daemon, or presenting a third-party format as an official protocol.
+<pre><code class="language-text">You are working in the current plugin repository. Make the minimum changes needed for DSH Hub integration without rewriting the core project, adding a second Loader or persistent daemon, or presenting a third-party format as an official protocol.
 
 Before editing:
 - Read every applicable AGENTS.md, README, license file, package manifest, lockfile, entry point, build configuration, and test.
@@ -521,7 +518,7 @@ Do not invent versions, compatibility, download counts, authorship, licenses, or
 <tr>
 <th>Actual project format</th>
 <th>Marketplace label</th>
-<th>DSH Hub Workshop / OMDSH behavior</th>
+<th>DSH Hub / OMDSH behavior</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -744,7 +741,7 @@ description: Produce a structured summary with conclusions, evidence, and next a
 <tr>
 <th>Community</th>
 <th>What to reuse</th>
-<th>DSH Hub Workshop choice</th>
+<th>DSH Hub choice</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -807,9 +804,9 @@ description: Produce a structured summary with conclusions, evidence, and next a
 
     </main>
     <footer class="site-footer doc-footer">
-      <div class="footer-summary"><a class="footer-brand" href="./">DSH Hub Workshop</a><p data-i18n="footer.notice">DSH Hub Workshop 只做索引，不对插件内容做安全担保。是否信任与安装，请自行核验。</p></div>
+      <div class="footer-summary"><a class="footer-brand" href="./">hub</a><p data-i18n="footer.notice">DSH Hub 只做索引，不对插件内容做安全担保。是否信任与安装，请自行核验。</p></div>
       <nav class="footer-group" aria-label="站点资源"><strong class="footer-heading">站点资源</strong><div class="footer-links"><a href="./" data-i18n="nav.catalog">插件</a><a href="catalog.json">JSON API</a><a href="https://github.com/omdsh-dev/dsh-hub-workshop">GitHub</a></div></nav>
-      <nav class="footer-group footer-ecosystem" aria-label="生态外链"><strong class="footer-heading">生态外链</strong><a class="footer-external-link" href="https://dshfind.com/" target="_blank" rel="noopener noreferrer"><span><b>dshfind</b><small>DSH 学习与分享社区</small></span><span aria-hidden="true">↗</span></a></nav>
+      <nav class="footer-group footer-ecosystem" aria-label="生态外链"><strong class="footer-heading">生态外链</strong><a class="footer-external-link" href="https://omdsh.dev/" target="_blank" rel="noopener noreferrer"><span><b>Oh My DSH</b><small>独立开发者社区</small></span><span aria-hidden="true">↗</span></a></nav>
     </footer>
   </body>
 </html>

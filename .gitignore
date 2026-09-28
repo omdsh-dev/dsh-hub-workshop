@@ -2,3 +2,5 @@ node_modules/
 .wrangler/
 .public-site/
 dist/
+.discovery-cache/
+marketplace.json.tmp
