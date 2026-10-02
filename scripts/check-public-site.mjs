@@ -127,7 +127,8 @@ if (inventory.schema !== 'omdsh-workshop-verification-inventory/v1'
   || (inventory.summary?.verification?.['current-baseline-passed'] ?? 0) !== intakeVerification['current-baseline-passed']
   || (inventory.summary?.verification?.['source-evidence-passed'] ?? 0) !== intakeVerification['source-evidence-passed']
   || (inventory.summary?.verification?.blocked ?? 0) !== intakeVerification.blocked
-  || (inventory.summary?.verification?.untested ?? 0) !== catalog.packages.length - intake.records.length
+  || (inventory.summary?.verification?.untested ?? 0) !== catalog.packages.length
+    - intakeVerification['current-baseline-passed'] - intakeVerification['source-evidence-passed'] - intakeVerification.blocked
   || inventory.summary?.registry?.admitted !== undefined
   || inventory.summary?.management?.transactional !== 2
   || inventory.summary?.management?.managed !== undefined
