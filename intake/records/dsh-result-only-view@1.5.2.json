@@ -1,0 +1,147 @@
+{
+  "schema": "omdsh-workshop-intake/v1",
+  "id": "dsh-result-only-view@1.5.2",
+  "submission": {
+    "repository": "https://github.com/YEYEYEYESHIFU/dsh-result-only-view",
+    "ref": "ad49cdba1a082cbc1bbe119f1854c122631a0c9c",
+    "path": null,
+    "manifest": {
+      "schema": "omdsh-workshop-submission/v2",
+      "operation": "create-project",
+      "project": {
+        "id": "dsh-result-only-view",
+        "displayName": "DSH Results Only",
+        "summary": "Results-only toggle for the DeepSeek Harness Web GUI: hides thinking and tool-call process rows so a conversation shows only final answers, keeps one live status line while the agent works, shows a clickable per-turn trace, and never hides interactive cards. zh-CN / en localized.",
+        "kind": "ui",
+        "category": "interface",
+        "tags": [
+          "deepseek-harness",
+          "dsh",
+          "dsh-plugin",
+          "results-only",
+          "web-ui",
+          "productivity",
+          "ui",
+          "conversation"
+        ],
+        "repository": "https://github.com/YEYEYEYESHIFU/dsh-result-only-view",
+        "path": null,
+        "author": {
+          "name": "YEYEYEYESHIFU",
+          "url": "https://github.com/YEYEYEYESHIFU"
+        },
+        "license": "MIT"
+      },
+      "release": {
+        "version": "1.5.2",
+        "ref": "ad49cdba1a082cbc1bbe119f1854c122631a0c9c",
+        "updatedAt": "2026-08-16T03:01:53.000Z",
+        "channel": "stable",
+        "compatibility": "DeepSeek Harness web profile, official baseline @deepseek-ai/dsh@0.1.0-rc.6; browser-only client bundle, peer deps react ^18.0.0 and @deepseek-ai/dsh-client-runtime / dsh-client-locale; built against client bundles rev 052ed3238a98 era (early-2026) and degrades gracefully if product DOM attributes change.",
+        "changelog": "1.5.2: ecosystem-standard README sections and peerDependencies. 1.5.1: fix turn-trace 'Processed 0 steps' on first render. 1.5.0: turn trace line, General settings row, event-driven refresh (no polling), reduced-motion restore preference. 1.4.1: native display for whitelisted cards, color-mix fallback, locale-registration fallback. 1.4.0: stable release, sub-call collapse fix.",
+        "capabilities": {
+          "requiresFabric": false,
+          "deepHook": false,
+          "restartRequired": false
+        },
+        "profileBundle": null,
+        "updateFrom": null
+      },
+      "management": {
+        "method": "guided",
+        "protocol": "harness-cordis",
+        "label": "DSH Web browser-only Cordis client bundle (dsh-result-only-view)",
+        "instructions": "Add the dsh-result-only-view package to a DeepSeek Harness web profile; the bundle patch (cordis.patch.yml) registers the client half, which injects into the web runtime and locale service and mounts a toggle in the conversation composer's input-left slot. After the web profile restarts, enabling the toggle hides thinking and tool-call process rows, keeps one live status line while a turn runs, and shows a clickable per-turn trace line. Preferences persist in browser localStorage.",
+        "source": null
+      },
+      "declarations": {
+        "permissions": "Browser-only client plugin: reads the conversation DOM to hide/reveal rows (dom:read, dom:observe), writes the toggle state and two preferences to localStorage (storage:localstorage), registers dictionary texts in the client locale service (locale:register), and mounts a small control in the conversation.input.left slot (ui:conversation). No network requests, no filesystem access, no credentials, no subprocess, no native code; product DOM is never modified.",
+        "testing": "npm run verify (scripts/verify.mjs) passes: file completeness, syntax, bundle-id match and an apply smoke test. Manually verified on the DeepSeek Harness web profile: toggle hides thinking/tool rows, live status line during runs, turn trace expand/collapse, whitelisted ask_user_question and cordis_run cards stay visible, zh-CN/en localization. Full lifecycle (install/update/disable/remove/recovery/failure-isolation) evidence is not provided; evidence fields remain null.",
+        "trustedPublisherRequested": false,
+        "installScriptsMustRemainDisabled": true
+      },
+      "packageManifest": {
+        "schema": "omdsh-workshop-package/v1",
+        "type": "plugin",
+        "integration": {
+          "protocol": "harness-cordis",
+          "artifact": "cordis.patch.yml"
+        },
+        "install": {
+          "mode": "guided",
+          "adapter": "third-party",
+          "failurePolicy": "manual",
+          "touchesCurrentBeforeActivation": false
+        },
+        "lifecycle": {
+          "activation": "immediate",
+          "dispose": "supported"
+        },
+        "permissions": [
+          "ui:conversation",
+          "dom:read",
+          "dom:observe",
+          "storage:localstorage",
+          "locale:register"
+        ],
+        "compatibility": {
+          "dshVersions": [
+            "0.1.0-rc.6"
+          ]
+        },
+        "capability": {
+          "id": "results-only-view",
+          "kind": "ui",
+          "invocation": "open a conversation containing thinking and tool-call rows and enable the Results only toggle in the composer",
+          "expected": "only user messages and final assistant replies remain visible while whitelisted interactive cards (ask_user_question, cordis_run) stay visible"
+        },
+        "evidence": {
+          "install": null,
+          "failureIsolation": null,
+          "hotReload": null,
+          "remove": null
+        }
+      }
+    }
+  },
+  "classification": {
+    "management": "guided"
+  },
+  "baseline": {
+    "package": "@deepseek-ai/dsh",
+    "version": "0.1.0-rc.6",
+    "integrity": "sha512-brpZfED7ieRa2PQ5tUxMhHrM1pb2CmKFVM/f6yMULBDMicahk+Z2OsHgTwTDnoiZm23Ftu9rQz0NN4pflaoJcg=="
+  },
+  "review": {
+    "state": "pending-review",
+    "notes": "Automatically prepared from #28; public fixed-source preflight passed. Human review is still required."
+  },
+  "verification": {
+    "state": "untested"
+  },
+  "tests": {
+    "static": {
+      "required": true,
+      "status": "passed",
+      "evidence": "submission manifest validation; public repository and fixed commit resolved; pinned path(s): /cordis.patch.yml, /package.json"
+    },
+    "supplyChain": {
+      "required": true,
+      "status": "pending"
+    },
+    "officialBaseline": {
+      "required": false,
+      "status": "not-applicable",
+      "evidence": "guided entries expose no executable install intent"
+    },
+    "lifecycle": {
+      "required": false,
+      "status": "not-applicable",
+      "evidence": "guided entries have no Workshop-owned lifecycle"
+    }
+  },
+  "registry": {
+    "state": "ineligible",
+    "reason": "guided-catalog-only"
+  }
+}

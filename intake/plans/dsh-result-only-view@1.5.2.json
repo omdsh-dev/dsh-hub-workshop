@@ -1,0 +1,235 @@
+{
+  "schema": "omdsh-workshop-harness-plan/v1",
+  "engineVersion": "1.1.0",
+  "id": "dsh-result-only-view@1.5.2:0.1.0-rc.6:harness-cordis",
+  "projectId": "dsh-result-only-view",
+  "releaseId": "dsh-result-only-view@1.5.2",
+  "source": {
+    "repository": "https://github.com/YEYEYEYESHIFU/dsh-result-only-view",
+    "ref": "ad49cdba1a082cbc1bbe119f1854c122631a0c9c",
+    "path": null
+  },
+  "updateFrom": null,
+  "baseline": {
+    "package": "@deepseek-ai/dsh",
+    "version": "0.1.0-rc.6",
+    "integrity": "sha512-brpZfED7ieRa2PQ5tUxMhHrM1pb2CmKFVM/f6yMULBDMicahk+Z2OsHgTwTDnoiZm23Ftu9rQz0NN4pflaoJcg=="
+  },
+  "profileBase": null,
+  "loaderAdapter": null,
+  "classification": {
+    "management": "guided",
+    "installMode": "guided",
+    "adapter": "third-party",
+    "protocol": "harness-cordis",
+    "failurePolicy": "manual",
+    "activation": "immediate"
+  },
+  "capability": {
+    "id": "results-only-view",
+    "kind": "ui",
+    "invocation": "open a conversation containing thinking and tool-call rows and enable the Results only toggle in the composer",
+    "expected": "only user messages and final assistant replies remain visible while whitelisted interactive cards (ask_user_question, cordis_run) stay visible"
+  },
+  "policy": {
+    "sourceExecution": "disabled-until-explicitly-trusted",
+    "workspace": "ephemeral",
+    "network": "deny-by-default",
+    "installScripts": "disabled",
+    "currentProfile": "read-only-until-controlled-activation",
+    "cleanup": "mandatory"
+  },
+  "claims": {
+    "seamlessInstall": {
+      "state": "not-claimed",
+      "reason": "only transactional Profile Bundle installation can claim seamless installation"
+    },
+    "failureIsolation": {
+      "state": "not-claimed",
+      "reason": "guided installation has manual failure handling"
+    },
+    "hotReload": {
+      "state": "not-declared",
+      "reason": "declared activation is immediate"
+    },
+    "protocolCompatibility": {
+      "state": "candidate",
+      "reason": "requires harness-cordis contract checks at the fixed source"
+    },
+    "registryReadiness": {
+      "state": "catalog-only",
+      "reason": "this protocol has no current Workshop Registry install authority"
+    }
+  },
+  "blockedReasons": [],
+  "steps": [
+    {
+      "id": "source.immutable",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "sourceImmutable": true
+      }
+    },
+    {
+      "id": "manifest.validate",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "manifestValid": true
+      }
+    },
+    {
+      "id": "artifact.present",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "artifactPresent": true
+      }
+    },
+    {
+      "id": "protocol.contract",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "protocolContractValid": true
+      }
+    },
+    {
+      "id": "compatibility.baseline",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "compatibilityPassed": true
+      }
+    },
+    {
+      "id": "permissions.review",
+      "phase": "static",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "permissionsReviewed": true
+      }
+    },
+    {
+      "id": "supply-chain.review",
+      "phase": "supply-chain",
+      "executor": "static",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "supplyChainPassed": true,
+        "installScriptsDisabled": true
+      }
+    },
+    {
+      "id": "cordis.service-contract",
+      "phase": "static",
+      "executor": "cordis",
+      "required": true,
+      "scope": "source-only",
+      "expectedFacts": {
+        "serviceContractValid": true
+      }
+    },
+    {
+      "id": "sandbox.policy",
+      "phase": "sandbox",
+      "executor": "cordis",
+      "required": true,
+      "scope": "ephemeral-workspace",
+      "expectedFacts": {
+        "workspaceEphemeral": true,
+        "networkDeniedByDefault": true,
+        "installScriptsDisabled": true,
+        "currentProtected": true
+      }
+    },
+    {
+      "id": "cordis.process-create",
+      "phase": "sandbox",
+      "executor": "cordis",
+      "required": true,
+      "scope": "isolated-process",
+      "expectedFacts": {
+        "processIsolated": true,
+        "currentUntouched": true
+      }
+    },
+    {
+      "id": "cordis.init",
+      "phase": "ready",
+      "executor": "cordis",
+      "required": true,
+      "scope": "isolated-process",
+      "expectedFacts": {
+        "initialized": true,
+        "ready": true
+      }
+    },
+    {
+      "id": "capability.invoke",
+      "phase": "functional",
+      "executor": "cordis",
+      "required": true,
+      "scope": "isolated-process",
+      "expectedFacts": {
+        "capabilityObserved": true
+      }
+    },
+    {
+      "id": "failure.inject-process",
+      "phase": "failure",
+      "executor": "cordis",
+      "required": true,
+      "scope": "isolated-process",
+      "expectedFacts": {
+        "failureInjected": true
+      }
+    },
+    {
+      "id": "failure.current-unchanged",
+      "phase": "failure",
+      "executor": "cordis",
+      "required": true,
+      "scope": "current-profile-controlled",
+      "expectedFacts": {
+        "currentUnchanged": true
+      }
+    },
+    {
+      "id": "failure.discard-process",
+      "phase": "failure",
+      "executor": "cordis",
+      "required": true,
+      "scope": "isolated-process",
+      "expectedFacts": {
+        "processDiscarded": true
+      }
+    },
+    {
+      "id": "cordis.dispose",
+      "phase": "remove",
+      "executor": "cordis",
+      "required": true,
+      "scope": "isolated-process",
+      "expectedFacts": {
+        "disposed": true,
+        "processRemoved": true
+      }
+    }
+  ],
+  "evidenceKey": "sha256:a9670b696293ff7856e459bbf3b287face968c01b8ce10babb59145706aee7bb"
+}
