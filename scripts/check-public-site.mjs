@@ -121,6 +121,15 @@ const intakeVerification = Object.fromEntries(['current-baseline-passed', 'sourc
   state,
   intake.records.filter((record) => record.verification?.state === state).length,
 ]))
+// The number of transactional projects is data, not a constant: every newly
+// admitted profile-bundle submission moves it. Derive it from the inventory the
+// same way the summary does, and assert the partition instead of a literal, so
+// a new project cannot fail the site check by existing.
+const inventoryManagement = Object.fromEntries(['transactional', 'managed', 'guided'].map((mode) => [
+  mode,
+  inventory.projects.filter((project) => project.management === mode).length,
+]))
+const inventoryManagementTotal = inventoryManagement.transactional + inventoryManagement.managed + inventoryManagement.guided
 if (inventory.schema !== 'omdsh-workshop-verification-inventory/v1'
   || inventory.summary?.catalogProjects !== catalog.packages.length
   || inventory.projects?.length !== catalog.packages.length
@@ -129,9 +138,11 @@ if (inventory.schema !== 'omdsh-workshop-verification-inventory/v1'
   || (inventory.summary?.verification?.blocked ?? 0) !== intakeVerification.blocked
   || (inventory.summary?.verification?.untested ?? 0) !== catalog.packages.length - intake.records.length
   || inventory.summary?.registry?.admitted !== undefined
-  || inventory.summary?.management?.transactional !== 2
+  || inventory.summary?.management?.transactional !== inventoryManagement.transactional
   || inventory.summary?.management?.managed !== undefined
-  || inventory.summary?.management?.guided !== catalog.packages.length - 2
+  || inventoryManagement.managed !== 0
+  || inventory.summary?.management?.guided !== inventoryManagement.guided
+  || inventoryManagementTotal !== catalog.packages.length
   || inventory.projects.some((project) => !project.identity?.fullName || !Array.isArray(project.externalEvidence))
   || inventory.projects.some((project) => project.externalEvidence.some((evidence) => evidence.authority !== 'supplemental-only'))
   || inventory.projects.some((project) => !project.capabilities?.manifest || !project.capabilities?.install?.seamless || !project.capabilities?.install?.failureIsolation || !project.capabilities?.lifecycle?.hotReload || !project.capabilities?.integration || !project.capabilities?.admission)) {
@@ -184,9 +195,9 @@ if (pluginApi.schema !== 'omdsh-ai-plugins/v1'
   || pluginTypes.schema !== 'omdsh-ai-plugin-types/v1'
   || pluginTypes.totals?.catalogProjects !== presentation.listings.length
   || pluginTypes.totals?.catalogComponents !== catalog.packages.length
-  || pluginTypes.management.find((entry) => entry.id === 'transactional')?.count !== 2
-  || (pluginTypes.management.find((entry) => entry.id === 'managed')?.count ?? 0) !== 0
-  || pluginTypes.management.find((entry) => entry.id === 'guided')?.count !== catalog.packages.length - 2) {
+  || pluginTypes.management.find((entry) => entry.id === 'transactional')?.count !== inventoryManagement.transactional
+  || (pluginTypes.management.find((entry) => entry.id === 'managed')?.count ?? 0) !== inventoryManagement.managed
+  || pluginTypes.management.find((entry) => entry.id === 'guided')?.count !== inventoryManagement.guided) {
   throw new Error('plugin API must project the full Catalog and verification inventory without install authority')
 }
 const nonPluginIds = new Set(marketLayers.projects.map((project) => project.id))
