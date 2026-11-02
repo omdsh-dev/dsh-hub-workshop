@@ -121,13 +121,18 @@ const intakeVerification = Object.fromEntries(['current-baseline-passed', 'sourc
   state,
   intake.records.filter((record) => record.verification?.state === state).length,
 ]))
+// A pending submission is not a Catalog project yet: only records whose
+// project id already exists in the Catalog reduce the untested count, so a new
+// submission cannot fail the site check merely by being submitted.
+const catalogIds = new Set(catalog.packages.map((entry) => entry.id))
+const intakeCatalogRecords = intake.records.filter((record) => catalogIds.has(record.submission?.manifest?.project?.id ?? String(record.id).split('@')[0]))
 if (inventory.schema !== 'omdsh-workshop-verification-inventory/v1'
   || inventory.summary?.catalogProjects !== catalog.packages.length
   || inventory.projects?.length !== catalog.packages.length
   || (inventory.summary?.verification?.['current-baseline-passed'] ?? 0) !== intakeVerification['current-baseline-passed']
   || (inventory.summary?.verification?.['source-evidence-passed'] ?? 0) !== intakeVerification['source-evidence-passed']
   || (inventory.summary?.verification?.blocked ?? 0) !== intakeVerification.blocked
-  || (inventory.summary?.verification?.untested ?? 0) !== catalog.packages.length - intake.records.length
+  || (inventory.summary?.verification?.untested ?? 0) !== catalog.packages.length - intakeCatalogRecords.length
   || inventory.summary?.registry?.admitted !== undefined
   || inventory.summary?.management?.transactional !== 2
   || inventory.summary?.management?.managed !== undefined
